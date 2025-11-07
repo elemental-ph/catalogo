@@ -1,0 +1,45 @@
+import { PortableText, type SanityDocument } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { client } from "@/sanity/lib/client";
+import Link from "next/link";
+import Image from 'next/image';
+import { urlFor } from "@/sanity/lib/image";
+
+
+const TIPOLOGIAS_QUERY = `*[
+  _type == "tipologia"
+]|order(sort asc)[0...12]{_id, sort, name, sigla, descripcion, icono, imagen_portada}`;
+
+const options = { next: { revalidate: 30 } };
+
+export default async function IndexPage() {
+  const tipologias = await client.fetch<SanityDocument[]>(TIPOLOGIAS_QUERY, {}, options);
+
+
+  return (
+    
+    <main className="flex items-center bg-neutral-700 h-svh w-full p-8">
+      <div className="container m-auto max-w-7xl">
+      <h1 className="text-xl text-center font-bold mb-8 font-mono">VIVIENDA INDUSTRIALIZADA ELEMENTAL</h1>
+      <div className="flex md:flex-row m-auto">
+        {tipologias.map((tipologia) => (
+          <Link href={`/tipologia/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
+          <li className="flex flex-col items-center" >
+              <div className="invert">
+              <Image 
+              src={urlFor(tipologia.icono).url()}
+              alt={tipologia.icono.alt || 'Sanity Image'}
+              width={450} // Specify width
+              height={450} // Specify height
+              />
+              </div>
+              <h1 className="text-l font-mono pt-6 text-bold group-hover:underline">{tipologia.sigla}</h1>
+          </li>
+          </Link>
+        ))}
+      </div>
+      </div>
+    </main>
+  );
+}
