@@ -19,14 +19,14 @@ export default async function IndexPage() {
 
   return (
     
-    <main className="flex items-center bg-neutral-700 h-svh w-full p-8">
+    <main className="flex items-center h-svh w-full p-8">
       <div className="container pt-20 m-auto max-w-7xl">
       <h1 className="text-xl text-center font-bold mb-8 font-mono">VIVIENDA INDUSTRIALIZADA ELEMENTAL</h1>
       <div className="flex flex-col  md:flex-row m-auto">
         {tipologias.map((tipologia) => (
           <Link href={`/tipologia/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
-              <div className="invert">
+              <div className="bg-neutral-400 md:bg-transparent invert">
               <Image 
               src={urlFor(tipologia.icono).url()}
               alt={tipologia.icono.alt || 'Sanity Image'}
@@ -34,7 +34,7 @@ export default async function IndexPage() {
               height={450} // Specify height
               />
               </div>
-              <h1 className="text-l font-mono pt-6 text-bold group-hover:underline">{tipologia.sigla}</h1>
+              <h1 className="text-l font-mono pt-6 pb-20 text-bold group-hover:underline">{tipologia.sigla}</h1>
           </li>
           </Link>
         ))}

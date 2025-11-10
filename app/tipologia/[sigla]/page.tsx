@@ -19,13 +19,13 @@ export default async function Tipologia({ params }: Props) {
 
       // Now you can safely use sigla
       return (
-    <main className="flex font-mono bg-neutral-700 md:h-svh h-full w-full p-8">
+    <main className="flex font-mono md:h-svh h-full w-full p-8">
       
       <Link className="pb-10 absolute top-8 left-8 hove:text-bold underline" href='/'>volver a portada</Link>
 
 
         <div className="container pt-20 m-auto flex flex-col md:flex-row max-w-6xl justify-between">
-                  <div className="flex-col max-w-xl"> 
+                  <div className="flex-col p-5 max-w-xl"> 
 
                           <h1 className="text-xl font-bold font-mono">Tipología {tipologia.sigla}</h1>
                           <h1 className="text-xl font-bold mb-8 font-mono">{tipologia.name}</h1>
@@ -45,10 +45,10 @@ export default async function Tipologia({ params }: Props) {
 
                   </div>  
 
-                  <div className="flex-col aspect-video max-w-md"> 
+                  <div className="flex-col p-5 aspect-video max-w-md"> 
                           <Comparacion 
-                            urlImagenAntes={urlFor(tipologia.planta_inicial).url()} 
-                            urlImagenDespues={urlFor(tipologia.planta_ampliacion).url()} 
+                            urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
+                            urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
                           />
 
                           <p className="max-w-2xl mt-10">Pisos: {tipologia.pisos}</p>

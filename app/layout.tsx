@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ELEMENTAL",
+  title: "VIVIENDA ELEMENTAL",
   description: "catalogo de vivienda industrializada",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistMono.variable} font-mono antialiased`}
+        className={`${geistMono.variable} bg-neutral-600 font-mono antialiased`}
       >
         
         {children}
