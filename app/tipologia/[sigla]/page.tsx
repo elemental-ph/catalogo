@@ -19,30 +19,43 @@ export default async function Tipologia({ params }: Props) {
 
       // Now you can safely use sigla
       return (
-    <main className="flex font-mono items-center bg-neutral-700 h-svh w-full p-8">
+    <main className="flex font-mono bg-neutral-700 h-svh w-full p-8">
       
-      <div className="container m-auto max-w-7xl">
-      <Link className="pb-10 text-bold hover:underline" href='/'>volver a portada</Link>
-      <h1 className="text-xl font-bold mb-8 font-mono">Tipología {tipologia.sigla} {tipologia.name}</h1>
-      <p className="max-w-2xl">{tipologia.descripcion}</p>
-      <div className="flex  m-auto">
-      
-          <li className="flex flex-col items-center" >
-              <div className="">
-                <Comparacion 
-                  urlImagenAntes={urlFor(tipologia.planta_inicial).url()} 
-                  urlImagenDespues={urlFor(tipologia.planta_ampliacion).url()} 
-                />
-              <Image 
-              src={urlFor(tipologia.imagen_portada).url()}
-              alt={tipologia.icono.alt || 'Sanity Image'}
-              width={800} // Specify width
-              height={800} // Specify height
-              />
-              </div>
-          </li>
-      </div>
-      </div>
+      <Link className="pb-10 absolute top-8 left-8 hove:text-bold underline" href='/'>volver a portada</Link>
+
+
+        <div className="container m-auto flex flex-row max-w-6xl justify-between">
+                  <div className="flex-col max-w-xl"> 
+
+                          <h1 className="text-xl font-bold font-mono">Tipología {tipologia.sigla}</h1>
+                          <h1 className="text-xl font-bold mb-8 font-mono">{tipologia.name}</h1>
+                          <p className="max-w-2xl">{tipologia.descripcion}</p>
+
+                          <p className="max-w-2xl mt-10">Pisos: {tipologia.pisos}</p>
+                          <p className="max-w-2xl">superficie inicial: {tipologia.superficie_incial}m²</p>
+                          <p className="max-w-2xl">Superficie ampliada: {tipologia.superficie_ampliada}m²</p>
+                          <p className="max-w-2xl">Densidad máxima: {tipologia.densidad_maxima}viv/há</p>
+                          
+
+                  </div>  
+
+                  <div className="flex-col aspect-video max-w-md"> 
+                          <Image 
+                                  className="object-cover"
+                                  src={urlFor(tipologia.imagen_portada).url()}
+                                  alt={tipologia.icono.alt || 'Sanity Image'}
+                                  width={600} // Specify width
+                                  height={600} // Specify height
+                          />
+
+                          <Comparacion 
+                            urlImagenAntes={urlFor(tipologia.planta_inicial).url()} 
+                            urlImagenDespues={urlFor(tipologia.planta_ampliacion).url()} 
+                          />
+
+                  </div>
+        </div>
+
     </main>
       );
     }
