@@ -19,8 +19,8 @@ export default async function Tipologia({ params }: Props) {
       // Now you can safely use sigla
       return (
          
-    <main className="flex font-mono md:h-svh h-full w-full">
-      <div className="relative h-svh min-w-screen min-h"> 
+    <main className="flex flex-grow items-center w-full p-8">
+      <div className=""> 
       <Image 
                                   className=""
                                   layout="fill"
@@ -32,8 +32,10 @@ export default async function Tipologia({ params }: Props) {
       </div> 
       <div>
       <Link className="pb-10 absolute top-8 left-8 hover:underline" href='/'>-volver a portada</Link>
-      <Link href={`/tipologia/${tipologia.sigla}`} className="pb-10 absolute top-14
-       left-8 hover:underline">-ver detalles {tipologia.sigla}</Link>
+      <div className="absolute inset-0 flex items-center justify-center">
+      <Link href={`/tipologia/${tipologia.sigla}`} className="rounded-3xl font-mono shadow-md bg-neutral-700 p-5
+       left-8 hover:underline"> ver detalles {tipologia.sigla}</Link>
+       </div>
       </div>
 
     </main>

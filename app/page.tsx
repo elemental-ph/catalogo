@@ -23,7 +23,7 @@ export default async function IndexPage() {
 
   return (
     
-    <main className="flex items-center h-svh w-full p-8">
+    <main className="flex flex-grow items-center w-full p-8">
       <div className="container md:pt-20 m-auto max-w-7xl">
        
       <h1 className="text-xl text-center font-bold mb-8 font-mono">{portada.titulo}</h1>

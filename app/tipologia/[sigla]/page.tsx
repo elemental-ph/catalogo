@@ -47,7 +47,7 @@ export default async function Tipologia({ params }: Props) {
       // Now you can safely use sigla
       return (
          
-    <main className="flex font-mono md:h-svh h-full w-full p-8">
+    <main className="flex flex-grow items-center w-full p-8">
       <Link className="pb-10 absolute top-8 left-8 hover:underline" href='/'>-volver a portada</Link>
       <Link href={`/portada/${tipologia.sigla}`} className="pb-10 absolute top-14 left-8 hover:underline" key={tipologia._id}>-ver imagen {tipologia.sigla}</Link>
 
