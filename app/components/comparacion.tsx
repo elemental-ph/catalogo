@@ -1,4 +1,4 @@
-// comparacion.tsx
+// Comparacion.tsx
 
 import React from 'react';
 import { 

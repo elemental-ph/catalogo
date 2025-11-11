@@ -2,7 +2,6 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
-import Comparacion from '../../components/comparacion'
 
 
 type Props = {
@@ -31,10 +30,12 @@ export default async function Tipologia({ params }: Props) {
                                   alt={tipologia.icono.alt || 'Sanity Image'}
                           /> 
       </div> 
-      
+      <div>
       <Link className="pb-10 absolute top-8 left-8 hover:underline" href='/'>-volver a portada</Link>
       <Link href={`/tipologia/${tipologia.sigla}`} className="pb-10 absolute top-14
        left-8 hover:underline">-ver detalles {tipologia.sigla}</Link>
+      </div>
+
     </main>
       );
     }

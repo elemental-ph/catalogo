@@ -2,8 +2,16 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
-import Comparacion from '../../components/comparacion'
+// @ts-ignore
+import Comparacion from '../../components/Comparacion'
 
+
+// Define esta interfaz en tu archivo de componentes o en un archivo de tipos separado
+interface Proyecto {
+  texto: string;
+  url: string;
+  // Agrega cualquier otra propiedad que pueda tener un proyecto
+}
 
 type Props = {
       params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
@@ -11,12 +19,32 @@ type Props = {
 
 export default async function Tipologia({ params }: Props) {
     const { sigla } = await params;
-    const query = `*[_type == "tipologia" && sigla == $sigla][0]`; // [0] to get the first matching document
+    const query = `*[_type == "tipologia" && sigla == $sigla][0]{
+    _id,
+    name,
+    sigla,
+    descripcion, 
+    superficie_inicial,
+    superficie_ampliada,
+    densidad_maxima,
+    pisos,
+    link_empresa_1,
+    link_empresa_2,
+    link_empresa_3,
+    imagen_portada,
+    planta_inicial,
+    planta_ampliacion,
+    lista_proyectos[]->{
+      texto,
+      url,
+    },
+    }`; // [0] to get the first matching document
 
     const tipologia = await client.fetch(query, { sigla });
 
     const options = { next: { revalidate: 30 } };
 
+    console.log("Sanity Document:", tipologia);
       // Now you can safely use sigla
       return (
          
@@ -35,19 +63,23 @@ export default async function Tipologia({ params }: Props) {
                   
                           <p className="">{tipologia.descripcion}</p>
                           
-                          <p className="mt-5">Superficie inicial: {tipologia.superficie_inicial}m²</p>
-                          <p className="">Superficie ampliada: {tipologia.superficie_ampliada}m²</p>
-                          <p className="">Densidad máxima: {tipologia.densidad_maxima}viv/há</p>
-                          <p className="">Pisos: {tipologia.pisos}</p>
+                          <p className="pl-10 mt-5">Superficie inicial: {tipologia.superficie_inicial}m²</p>
+                          <p className="pl-10">Superficie ampliada: {tipologia.superficie_ampliada}m²</p>
+                          <p className="pl-10">Densidad máxima: {tipologia.densidad_maxima}viv/há</p>
+                          <p className="pl-10">Pisos: {tipologia.pisos}</p>
 
-                          <p className="mt-5">Proyectos elemental con la misma tipología:</p>
-                          <a href={tipologia.proyecto_1} className="block hover:underline">{tipologia.proyecto_1}</a>
-                          <a href={tipologia.proyecto_2} className="block hover:underline">{tipologia.proyecto_2}</a>
-                          <a href={tipologia.proyecto_3} className="block hover:underline">{tipologia.proyecto_3}</a>
+                          <p className="mt-5">Proyectos con esta tipología:</p>
+                          <ul>
+                            {tipologia.lista_proyectos.map((proyecto: Proyecto) => (
+                              <li key={proyecto.texto}>
+                                <a href={proyecto.url} className="pl-10 text-bold hover:underline">{proyecto.texto}</a>
+                              </li>
+                            ))}
+                          </ul>
 
                           <p className="mt-5">Empresas industrializadoras:</p>
-                          <a href={tipologia.link_empresa_1} className="block hover:underline">{tipologia.link_empresa_1}</a>
-                          <a href={tipologia.link_empresa_2} className="block hover:underline">{tipologia.link_empresa_2}</a>
+                          <a href={tipologia.link_empresa_1} className="pl-10 block hover:underline">{tipologia.link_empresa_1}</a>
+                          <a href={tipologia.link_empresa_2} className="pl-10 block hover:underline">{tipologia.link_empresa_2}</a>
 
                  
                   </div>  
@@ -57,7 +89,7 @@ export default async function Tipologia({ params }: Props) {
                           <Comparacion 
                             urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
-                          />
+                          /> 
                     </div> 
                   </div>
         </div>

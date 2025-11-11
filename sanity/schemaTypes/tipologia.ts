@@ -79,19 +79,17 @@ export default {
       type: 'string',
     },
     {
-      name: 'proyecto_1',
-      title: 'proyecto 1',
-      type: 'string',
-    },
-    {
-      name: 'proyecto_2',
-      title: 'proyecto 2',
-      type: 'string',
-    },
-    {
-      name: 'proyecto_3',
-      title: 'proyecto 3',
-      type: 'string',
+      name: 'lista_proyectos',
+      title: 'lista_proyectos',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+           {type: 'proyecto'},
+           ],
+        },
+      ],
     },
   ],
 };
