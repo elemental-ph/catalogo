@@ -63,5 +63,35 @@ export default {
       title: 'planta ampliacion',
       type: 'image',
     },
+    {
+      name: 'link_empresa_1',
+      title: 'link empresa 1',
+      type: 'string',
+    },
+    {
+      name: 'link_empresa_2',
+      title: 'link empresa 2',
+      type: 'string',
+    },
+    {
+      name: 'link_empresa_3',
+      title: 'link empresa 3',
+      type: 'string',
+    },
+    {
+      name: 'proyecto_1',
+      title: 'proyecto 1',
+      type: 'string',
+    },
+    {
+      name: 'proyecto_2',
+      title: 'proyecto 2',
+      type: 'string',
+    },
+    {
+      name: 'proyecto_3',
+      title: 'proyecto 3',
+      type: 'string',
+    },
   ],
 };

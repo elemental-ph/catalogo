@@ -4,7 +4,8 @@ import React from 'react';
 import { 
   ReactCompareSlider, 
   ReactCompareSliderImage, 
-  ReactCompareSliderHandle 
+  ReactCompareSliderHandle,
+  styleFitContainer 
 } from 'react-compare-slider';
 
 // Definición de las Props que recibirá el componente
@@ -24,8 +25,8 @@ interface ComparacionProps {
 const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDespues }) => {
   // Un estilo simple para el contenedor, puedes ajustarlo en tu CSS global o módulos.
   const containerStyle: React.CSSProperties = {
-    maxWidth: '600px', // Ajusta el tamaño máximo de la comparación
-    margin: '20px auto', // Centrar el componente
+    maxWidth: '100%', // Ajusta el tamaño máximo de la comparación
+    margin: 'auto', // Centrar el componente
     overflow: 'hidden', // Asegura que las imágenes se ajusten al contenedor
   };
 
@@ -40,6 +41,16 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+      }}
+      buttonStyle={{
+        backdropFilter: undefined,
+        WebkitBackdropFilter: undefined,
+        backgroundColor: 'white',
+        width:'35px',
+        height:'35px',
+        color: '#505050',
+        boxShadow: '',
+        border: '1px solid white'
       }}
     >
       {'<>'}
@@ -58,6 +69,8 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
         // 2. Aplicar el Handle personalizado
         handle={CustomHandle}
     
+
+        boundsPadding={0}
         // itemChangeDelay={200} // Puedes añadir un ligero retraso si quieres
         
         // Imagen 1: La que está detrás (Antes)
