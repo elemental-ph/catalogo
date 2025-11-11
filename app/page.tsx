@@ -24,7 +24,7 @@ export default async function IndexPage() {
       <h1 className="text-xl text-center font-bold mb-8 font-mono">VIVIENDA INDUSTRIALIZADA ELEMENTAL</h1>
       <div className="flex flex-col  md:flex-row m-auto">
         {tipologias.map((tipologia) => (
-          <Link href={`/tipologia/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
+          <Link href={`/portada/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
               <div className="bg-neutral-400 md:bg-transparent invert">
               <Image 
