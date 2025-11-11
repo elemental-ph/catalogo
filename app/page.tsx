@@ -11,18 +11,23 @@ const TIPOLOGIAS_QUERY = `*[
   _type == "tipologia"
 ]|order(sort asc)[0...12]{_id, sort, name, sigla, descripcion, icono, imagen_portada}`;
 
+const PORTADA_QUERY = `*[
+  _type == "portada"
+]`;
+
 const options = { next: { revalidate: 30 } };
 
 export default async function IndexPage() {
   const tipologias = await client.fetch<SanityDocument[]>(TIPOLOGIAS_QUERY, {}, options);
+  const portada = await client.fetch<SanityDocument[]>(PORTADA_QUERY, {}, options);
 
 
   return (
     
     <main className="flex items-center h-svh w-full p-8">
       <div className="container pt-20 m-auto max-w-7xl">
-      <h1 className="text-xl text-center font-bold mb-8 font-mono">VIVIENDA INDUSTRIALIZADA ELEMENTAL</h1>
-      <div className="flex flex-col  md:flex-row m-auto">
+      <h1 className="text-xl text-center font-bold mb-8 font-mono"></h1>
+      <div className="flex flex-col md:flex-row m-auto">
         {tipologias.map((tipologia) => (
           <Link href={`/portada/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
