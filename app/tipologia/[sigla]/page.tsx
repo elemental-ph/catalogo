@@ -2,7 +2,6 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
-// @ts-ignore
 import Comparacion from '../../components/Comparacion'
 
 
