@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
-import Comparacion from '../../components/Comparacion'
+import Comparacion from '../../components/comparacion'
 
 
 // Define esta interfaz en tu archivo de componentes o en un archivo de tipos separado
