@@ -3,9 +3,8 @@ import tipologia from './tipologia';
 import logo from './logo';
 import telefono_contacto from './contacto';
 import portada from './portada'
-// @ts-ignore
 import proyecto from './proyecto'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [logo, tipologia, telefono_contacto, proyecto, portada],
+  types: [tipologia, proyecto, portada],
 }
