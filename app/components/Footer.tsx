@@ -7,10 +7,10 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="text-white flex justify-center">
-      <div className="max-w-6xl mx-auto font-mono pt-10 pb-10">
+      <div className="max-w-6xl mx-auto font-mono pt-5 pb-5">
         <p>
             <Link href="https://www.elementalchile.cl/es/contact" className="hover:underline">
-               contactanos
+               contáctanos
             </Link>
             </p>
       </div>

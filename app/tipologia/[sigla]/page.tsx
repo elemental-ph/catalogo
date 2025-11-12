@@ -23,6 +23,7 @@ export default async function Tipologia({ params }: Props) {
     _id,
     name,
     sigla,
+    icono,
     descripcion, 
     superficie_inicial,
     superficie_ampliada,
@@ -54,6 +55,7 @@ export default async function Tipologia({ params }: Props) {
       {/* <Link href={`/portada/${tipologia.sigla}`} className="pb-10 absolute top-14 left-8 hover:underline" key={tipologia._id}>-ver imagen {tipologia.sigla}</Link> */}
 
         <div className="container pt-20 m-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
+
                   <div className="min-w-2xs md:col-span-2"> 
                     <h1 className="font-bold">Tipología {tipologia.sigla}</h1>
                     <h1 className="">{tipologia.name}</h1>
