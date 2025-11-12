@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
 import Comparacion from '../../components/comparacion'
+import BotonVolver from "@/app/components/BotonVolver";
 
 
 // Define esta interfaz en tu archivo de componentes o en un archivo de tipos separado
@@ -48,8 +49,8 @@ export default async function Tipologia({ params }: Props) {
       return (
          
     <main className="flex flex-grow items-center w-full p-8">
-      <Link className="pb-10 absolute top-8 left-8 hover:underline" href='/'>-volver a portada</Link>
-      <Link href={`/portada/${tipologia.sigla}`} className="pb-10 absolute top-14 left-8 hover:underline" key={tipologia._id}>-ver imagen {tipologia.sigla}</Link>
+      <BotonVolver/>
+      {/* <Link href={`/portada/${tipologia.sigla}`} className="pb-10 absolute top-14 left-8 hover:underline" key={tipologia._id}>-ver imagen {tipologia.sigla}</Link> */}
 
         <div className="container pt-20 m-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="min-w-2xs md:col-span-2"> 
@@ -90,6 +91,7 @@ export default async function Tipologia({ params }: Props) {
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
                           /> 
                     </div> 
+                    <p className="mt-3">deslizar para ver tipo de ampliación</p>
                   </div>
         </div>
 

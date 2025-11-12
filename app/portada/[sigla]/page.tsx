@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
+import BotonVolver from "@/app/components/BotonVolver";
 
 
 type Props = {
@@ -22,20 +23,18 @@ export default async function Tipologia({ params }: Props) {
     <main className="flex flex-grow items-center w-full p-8">
       <div className=""> 
       <Image 
-                                  className=""
-                                  layout="fill"
-                                  objectFit="cover"
-                                  objectPosition="center"
+                                  className="object-cover object-center"
+                                  fill={true}
                                   src={urlFor(tipologia.imagen_portada).url()}
                                   alt={tipologia.icono.alt || 'Sanity Image'}
                           /> 
       </div> 
       <div>
-      <Link className="pb-10 absolute top-8 left-8 hover:underline" href='/'>-volver a portada</Link>
-      <div className="absolute inset-0 flex items-center justify-center">
-      <Link href={`/tipologia/${tipologia.sigla}`} className="rounded-3xl font-mono shadow-md bg-neutral-700 p-5
+      <div className="absolute inset-0 pointer-event-none flex items-center justify-center">
+      <Link href={`/tipologia/${tipologia.sigla}`} className="font-mono shadow-md bg-[#505050] p-5
        left-8 hover:underline"> ver detalles {tipologia.sigla}</Link>
        </div>
+       <BotonVolver/>
       </div>
 
     </main>
