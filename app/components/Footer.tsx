@@ -8,9 +8,11 @@ const Footer: React.FC = () => {
   return (
     <footer className="text-white flex justify-center">
       <div className="max-w-6xl mx-auto font-mono pt-10 pb-10">
-            <Link href="https://www.elementalchile.cl/es/contact" className="text-sm hover:underline">
-              Contacto
+        <p>
+            <Link href="https://www.elementalchile.cl/es/contact" className="hover:underline">
+               contactanos
             </Link>
+            </p>
       </div>
     </footer>
   );

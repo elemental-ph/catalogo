@@ -34,6 +34,7 @@ export default async function Tipologia({ params }: Props) {
     imagen_portada,
     planta_inicial,
     planta_ampliacion,
+    recintos,
     lista_proyectos[]->{
       texto,
       url,
@@ -72,14 +73,14 @@ export default async function Tipologia({ params }: Props) {
                           <ul>
                             {tipologia.lista_proyectos.map((proyecto: Proyecto) => (
                               <li key={proyecto.texto}>
-                                <a href={proyecto.url} className="pl-10 text-bold hover:underline">{proyecto.texto}</a>
+                                <a href={proyecto.url} className="pl-10 text-bold underline">{proyecto.texto}</a>
                               </li>
                             ))}
                           </ul>
 
                           <p className="mt-5">Empresas industrializadoras:</p>
-                          <a href={tipologia.link_empresa_1} className="pl-10 block hover:underline">{tipologia.link_empresa_1}</a>
-                          <a href={tipologia.link_empresa_2} className="pl-10 block hover:underline">{tipologia.link_empresa_2}</a>
+                          <a href={tipologia.link_empresa_1} className="pl-10 block underline">{tipologia.link_empresa_1}</a>
+                          <a href={tipologia.link_empresa_2} className="pl-10 block underline">{tipologia.link_empresa_2}</a>
 
                  
                   </div>  
@@ -92,6 +93,9 @@ export default async function Tipologia({ params }: Props) {
                           /> 
                     </div> 
                     <p className="mt-3">deslizar para ver tipo de ampliación</p>
+                    <div className="min-w-2xs md:col-span-2"> 
+                    <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
+                    </div>
                   </div>
         </div>
 

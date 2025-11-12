@@ -79,6 +79,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'recintos',
+      title: 'recintos',
+      type: 'text',
+    },
+    {
       name: 'lista_proyectos',
       title: 'lista_proyectos',
       type: 'array',
