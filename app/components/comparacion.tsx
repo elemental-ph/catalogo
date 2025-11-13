@@ -38,6 +38,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
       // El handle personalizado define el estilo de la línea visible al 
       // establecer un borde o sombra en el handle mismo.
       style={{
+        color: '#ffe900',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -45,12 +46,12 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
       buttonStyle={{
         backdropFilter: undefined,
         WebkitBackdropFilter: undefined,
-        backgroundColor: 'white',
+        backgroundColor: '#ffe900',
         width:'35px',
         height:'35px',
         color: '#505050',
         boxShadow: '',
-        border: '1px solid white'
+        border: '1px solid #ffe900'
       }}
     >
       {'<>'}

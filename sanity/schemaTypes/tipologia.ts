@@ -29,6 +29,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'superficie',
+      title: 'superficie',
+      type: 'string',
+    },
+    {
       name: 'superficie_inicial',
       title: 'superficie_inicial',
       type: 'number',

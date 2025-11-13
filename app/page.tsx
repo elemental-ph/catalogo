@@ -26,9 +26,9 @@ export default async function IndexPage() {
     <main className="flex flex-grow items-center w-full p-8">
       <div className="container md:pt-20 m-auto max-w-7xl">
        
-      <h1 className="text-xl text-center font-bold mb-8 font-mono">{portada.titulo}</h1>
+      <h1 className="text-xl text-center font-bold mb-8">{portada.titulo}</h1>
       <div className="m-auto max-w-xl">
-      <p className="text-center w-full mb-8 font-mono">{portada.resumen}</p>
+      <p className="text-center text-l w-full mb-8">{portada.resumen}</p>
       </div>
       <div className="flex flex-col md:flex-row m-auto">
         {tipologias.map((tipologia) => (
@@ -42,7 +42,7 @@ export default async function IndexPage() {
               height={450} // Specify height
               />
               </div>
-              <h1 className="text-l font-mono pt-6 pb-20 text-bold group-hover:underline">{tipologia.sigla}</h1>
+              <h1 className="text-l pt-6 pb-20 text-bold group-hover:underline">{tipologia.sigla}</h1>
           </li>
           </Link>
         ))}

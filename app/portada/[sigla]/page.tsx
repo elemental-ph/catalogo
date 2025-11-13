@@ -21,24 +21,21 @@ export default async function Tipologia({ params }: Props) {
       return (
          
     <main className="flex flex-grow items-center w-full p-8">
-      <div className=""> 
-      <Image 
-                                  className="object-cover object-center"
-                                  fill={true}
-                                  src={urlFor(tipologia.imagen_portada).url()}
-                                  alt={tipologia.icono.alt || 'Sanity Image'}
-                          /> 
+      <div> 
+          <Image 
+              className="object-cover object-center"
+              fill={true}
+              src={urlFor(tipologia.imagen_portada).url()}
+              alt={tipologia.icono.alt || 'Sanity Image'}
+          /> 
       </div> 
       <div>
       <div className="absolute inset-0 pointer-event-none flex flex-col items-center justify-center">
-        <div className="h-[75%]"></div>
-      <Link href={`/tipologia/${tipologia.sigla}`} className="font-mono bg-[#505050] p-5
-       left-8 hover:underline"> ver detalles {tipologia.sigla}</Link>
-       
-       </div>
-       <BotonVolver/>
+          <div className="h-[75%]"></div>
+            <Link href={`/tipologia/${tipologia.sigla}`} className="bg-[#505050] p-5 left-8 hover:underline"> ver detalles {tipologia.sigla}</Link>
+          </div>
+          <BotonVolver/>
       </div>
-
     </main>
       );
     }

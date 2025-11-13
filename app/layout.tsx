@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer"
+import { helveticaNeue } from "./ui/fonts";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "VIVIENDA ELEMENTAL",
   description: "catalogo de vivienda industrializada",
 };
+
+
 
 export default function RootLayout({
   children,
@@ -26,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistMono.variable} flex flex-col min-h-screen antialiased`}
+        className={`${helveticaNeue.className} ${helveticaNeue.variable} flex flex-col min-h-screen antialiased`}
       >
         {children}
         <Footer/>

@@ -25,6 +25,7 @@ export default async function Tipologia({ params }: Props) {
     sigla,
     icono,
     descripcion, 
+    superficie,
     superficie_inicial,
     superficie_ampliada,
     densidad_maxima,
@@ -66,12 +67,11 @@ export default async function Tipologia({ params }: Props) {
                   
                           <p className="">{tipologia.descripcion}</p>
                           
-                          <p className="pl-10 mt-5">Superficie inicial: {tipologia.superficie_inicial}m²</p>
-                          <p className="pl-10">Superficie ampliada: {tipologia.superficie_ampliada}m²</p>
+                          <p className="pl-10 mt-5">Superficie: {tipologia.superficie}</p>
                           <p className="pl-10">Densidad máxima: {tipologia.densidad_maxima}viv/há</p>
                           <p className="pl-10">Pisos: {tipologia.pisos}</p>
 
-                          <p className="mt-5">Proyectos con esta tipología:</p>
+                          <p className="mt-5">Links relacionados:</p>
                           <ul>
                             {tipologia.lista_proyectos.map((proyecto: Proyecto) => (
                               <li key={proyecto.texto}>
@@ -80,7 +80,7 @@ export default async function Tipologia({ params }: Props) {
                             ))}
                           </ul>
 
-                          <p className="mt-5">Empresas industrializadoras:</p>
+                          <p className="mt-5">Disponible en las siguientes tecnologías:</p>
                           <a href={tipologia.link_empresa_1} className="pl-10 block underline">{tipologia.link_empresa_1}</a>
                           <a href={tipologia.link_empresa_2} className="pl-10 block underline">{tipologia.link_empresa_2}</a>
 
@@ -94,7 +94,7 @@ export default async function Tipologia({ params }: Props) {
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
                           /> 
                     </div> 
-                    <p className="mt-3">deslizar para ver tipo de ampliación</p>
+                    <p className="mt-3 min-w-3xs">deslizar para ver tipo de ampliación</p>
                     <div className="min-w-2xs md:col-span-2"> 
                     <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
                     </div>
