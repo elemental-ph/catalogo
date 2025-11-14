@@ -67,7 +67,7 @@ export default async function Tipologia({ params }: Props) {
       <div>
       <div className="absolute inset-0 pointer-event-none flex flex-col items-center justify-center">
           <div className="h-[50%]"></div>
-            <Link href={`/tipologia/${tipologia.sigla}`} className="bg-[#505050] p-5 left-8 hover:underline"> ver detalles {tipologia.sigla}</Link>
+            <Link href={`/tipologia/${tipologia.sigla}`} className="bg-[#505050] p-3 hover:underline"> ver detalles {tipologia.sigla}</Link>
           </div>
           <BotonVolver/>
       </div>

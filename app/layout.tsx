@@ -5,8 +5,9 @@ import { helveticaNeue } from "./ui/fonts";
 
 
 export const metadata: Metadata = {
-  title: "VIVIENDA ELEMENTAL",
-  description: "catalogo de vivienda industrializada",
+  title: "VIVIENDA INDUSTRIALIZADA ELEMENTAL",
+  description: "Casas diseñadas por ELEMENTAL con tecnologías industrializadas para proyectos DS19, DS49 y situaciones de emergencia.",
+  keywords: "vivienda, social, DS49, incremental, elemental, alejandro aravena, arquitectura, entidad patrocinante, casas, industrializada, industrialización"
 };
 
 

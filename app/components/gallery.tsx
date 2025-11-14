@@ -37,7 +37,7 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     // Set container height (e.g., h-[400px]) to fix the Next.js warning
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-[#505050]">
       
       {/* 🖼️ Current Image: Fades Out */}
       <Image
