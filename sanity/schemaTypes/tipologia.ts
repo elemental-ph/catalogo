@@ -1,3 +1,5 @@
+import { defineField, defineType } from 'sanity';
+
 export default {
   name: 'tipologia',
   title: 'Tipologia',
@@ -57,6 +59,40 @@ export default {
       name: 'imagen_portada',
       title: 'imagen portada',
       type: 'image',
+      options: {
+            hotspot: true, // Allows content editors to define a hotspot for image cropping
+          },
+      fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Alt text for accessibility and SEO',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+    },
+    {
+      name: 'lista_imagenes',
+      title: 'lista imagenes',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true, // Allows content editors to define a hotspot for image cropping
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Alt text for accessibility and SEO',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        },
+      ],
     },
     {
       name: 'planta_inicial',
