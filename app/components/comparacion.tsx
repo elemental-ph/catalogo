@@ -65,7 +65,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
       */}
       <ReactCompareSlider
         // Ajuste para el desplazamiento del slider (horizontal por defecto)
-        position={10} // Inicia el slider a la mitad (50%)
+        position={0} // Inicia el slider a la mitad (50%)
 
         // 2. Aplicar el Handle personalizado
         handle={CustomHandle}
@@ -79,7 +79,9 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
           <ReactCompareSliderImage 
             src={urlImagenAntes} 
             alt="Imagen Antes" 
-            style={{ objectFit: 'cover' }} // Asegura que la imagen cubra el espacio
+            style={{ 
+              objectFit: 'contain',
+            height:'60vh' }} // Asegura que la imagen cubra el espacio
           />
         }
         
@@ -88,7 +90,9 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
           <ReactCompareSliderImage 
             src={urlImagenDespues} 
             alt="Imagen Después" 
-            style={{ objectFit: 'cover' }} // Asegura que la imagen cubra el espacio
+            style={{ objectFit: 'contain',
+              height:'60vh' 
+             }} // Asegura que la imagen cubra el espacio
           />
         }
       />

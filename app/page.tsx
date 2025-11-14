@@ -34,7 +34,7 @@ export default async function IndexPage() {
         {tipologias.map((tipologia) => (
           <Link href={`/portada/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
-              <div className="bg-neutral-400 md:bg-transparent invert">
+              <div className="bg-neutral-400 md:opacity-75 transition group-hover:opacity-100 md:bg-transparent invert">
               <Image 
               src={urlFor(tipologia.icono).url()}
               alt={tipologia.icono.alt || 'Sanity Image'}
@@ -42,7 +42,7 @@ export default async function IndexPage() {
               height={450} // Specify height
               />
               </div>
-              <h1 className="text-l pt-6 pb-20 text-bold group-hover:underline">{tipologia.sigla}</h1>
+              <h1 className="text-l pt-6 pb-20 text-bold md:opacity-75 transition group-hover:opacity-100">{tipologia.sigla}</h1>
           </li>
           </Link>
         ))}

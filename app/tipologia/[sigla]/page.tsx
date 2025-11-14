@@ -93,7 +93,7 @@ export default async function Tipologia({ params }: Props) {
                             urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
                           /> 
-                    </div> 
+                    </div>
                     <p className="mt-3 min-w-3xs">deslizar para ver tipo de ampliación</p>
                     <div className="min-w-2xs md:col-span-2"> 
                     <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
