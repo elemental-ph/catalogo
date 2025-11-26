@@ -72,21 +72,21 @@ export default async function Tipologia({ params }: Props) {
                           <p className="pl-10">Pisos: {tipologia.pisos}</p>
 
                           <p className="mt-5">Links relacionados:</p>
-                          <ul>
+                          <ul className="pl-10">
                             {tipologia.lista_proyectos.map((proyecto: Proyecto) => (
                               <li key={proyecto.texto}>
-                                <a href={proyecto.url} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{proyecto.texto}</a>
+                                <a href={proyecto.url} className="decoration-3 underline-offset-6 transition duration-300 underline">{proyecto.texto}</a>
                               </li>
                             ))}
                           </ul>
 
                           <p className="mt-5">Disponible en las siguientes tecnologías:</p>
-                          <ul>
+                          <ul className="pl-10">
                             <li>
-                          <a href={tipologia.link_empresa_1} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_1}</a>
+                          <a href={tipologia.link_empresa_1} className="decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_1}</a>
                           </li>
                           <li>
-                          <a href={tipologia.link_empresa_2} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_2}</a>
+                          <a href={tipologia.link_empresa_2} className="decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_2}</a>
                           </li>
                           </ul>
 

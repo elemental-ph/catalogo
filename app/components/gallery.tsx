@@ -87,20 +87,20 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrls, sigla }) => {
   // --- RENDERIZADO CONDICIONAL ---
   if (!isMounted || imageUrls.length === 0) { 
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black text-white">
+      <div className="fixed inset-0 flex items-center justify-center bg-[#505050] text-white">
         {imageUrls.length === 0 ? 'No hay imágenes para mostrar.' : 'Cargando Galería...'}
       </div>
     );
   }
 
   // --- RENDERIZADO FINAL ---
-  const buttonClasses = "p-3 hidden md:block bg-[#505050] cursor-pointer transition-colors backdrop-blur-sm disabled:hidden disabled:cursor-not-allowed";
+  const buttonClasses = "p-3 hidden md:block bg-[#505050] cursor-pointer transition-colors disabled:hidden disabled:cursor-not-allowed";
 
   return (
     
     // Agregamos los manejadores táctiles al contenedor principal
     <div 
-      className="fixed inset-0 bg-black"
+      className="fixed inset-0"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
