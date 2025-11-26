@@ -88,6 +88,9 @@ export default async function Tipologia({ params }: Props) {
                           <li>
                           <a href={tipologia.link_empresa_2} className="decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_2}</a>
                           </li>
+                          <li>
+                          <a href={tipologia.link_empresa_3} className="decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_3}</a>
+                          </li>
                           </ul>
 
                  
