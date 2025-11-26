@@ -1,69 +1,179 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+'use client'; 
 
-interface GalleryProps {
-  images: string[];
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import Link from "next/link";
+
+interface ImageGalleryProps {
+  imageUrls: string[];
+  sigla: string;
 }
 
-export default function Gallery({ images }: GalleryProps) {
-  const [current, setCurrent] = useState(0);
-  const [isFading, setIsFading] = useState(false);
+/**
+ * Galería de imágenes a pantalla completa con navegación manual (botones y swipe), 
+ * transición "fade" sin destello de fondo, y estilos Tailwind CSS.
+ */
+const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrls, sigla }) => {
+  // --- HOOKS DE ESTADO Y REFERENCIA ---
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [leavingImageIndex, setLeavingImageIndex] = useState(-1);
+  const [isMounted, setIsMounted] = useState(false); 
+  const startX = useRef(0);         // Para el inicio del swipe táctil
   
-  // Define the transition duration in milliseconds (must match CSS below)
-  const TRANSITION_DURATION = 800; // 1 second
-  const INTERVAL_TIME = 6000;      // 5 seconds total per slide
+  const FADE_DURATION_MS = 0;
+  const SWIPE_THRESHOLD = 50; 
 
+  // Asegurar el montaje en el cliente y resolver problemas de hidratación
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      // 1. Start the fade-out by setting state to 'fading'
-      setIsFading(true); 
+    setIsMounted(true);
+  }, []);
 
-      // 2. After the transition duration, switch the image source 
-      //    and immediately fade the new image in (setIsFading(false))
-      const timer = setTimeout(() => {
-        setCurrent((prev) => (prev + 1) % images.length);
-        setIsFading(false);
-      }, TRANSITION_DURATION);
+  // --- LÓGICA DE NAVEGACIÓN Y FADE ---
+  
+  // Función central para cambiar de imagen, manejando el fade-out
+  const handleChangeImage = useCallback((newIndex: number) => {
+    // 1. La imagen actual se marca como "saliente"
+    setLeavingImageIndex(currentImageIndex);
+    
+    // 2. Cambia la imagen entrante inmediatamente (aparece en z-30)
+    setCurrentImageIndex(newIndex);
+    
+    // 3. Limpiamos la referencia a la imagen saliente SÓLO después de que la transición CSS (0.5s) haya terminado.
+    setTimeout(() => {
+        setLeavingImageIndex(-1);
+    }, FADE_DURATION_MS);
+    
+  }, [currentImageIndex, FADE_DURATION_MS, imageUrls.length]);
 
-      return () => clearTimeout(timer);
-    }, INTERVAL_TIME);
 
-    return () => clearInterval(intervalId);
-  }, [images.length]);
+  // Lógica para avanzar
+  const handleNext = useCallback(() => {
+    if (imageUrls.length <= 1) return;
+    const newIndex = (currentImageIndex + 1) % imageUrls.length;
+    handleChangeImage(newIndex);
+  }, [currentImageIndex, imageUrls.length, handleChangeImage]);
 
-  // Calculate the next image index for preloading
-  const next = (current + 1) % images.length;
+  // Lógica para retroceder
+  const handlePrev = useCallback(() => {
+    if (imageUrls.length <= 1) return;
+    const newIndex = currentImageIndex === 0 ? imageUrls.length - 1 : currentImageIndex - 1;
+    handleChangeImage(newIndex);
+  }, [currentImageIndex, imageUrls.length, handleChangeImage]);
+  
+  // --- LÓGICA DEL SWIPE TÁCTIL ---
+
+  // Almacena la posición inicial X al tocar
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  // Calcula la diferencia al levantar el dedo y ejecuta la navegación
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const endX = e.changedTouches[0].clientX;
+    const diffX = startX.current - endX; 
+
+    if (imageUrls.length <= 1 || Math.abs(diffX) < SWIPE_THRESHOLD) {
+      return;
+    }
+
+    if (diffX > 0) {
+      // Swipe de derecha a izquierda -> Siguiente
+      handleNext();
+    } else {
+      // Swipe de izquierda a derecha -> Anterior
+      handlePrev();
+    }
+  };
+
+  // --- RENDERIZADO CONDICIONAL ---
+  if (!isMounted || imageUrls.length === 0) { 
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black text-white">
+        {imageUrls.length === 0 ? 'No hay imágenes para mostrar.' : 'Cargando Galería...'}
+      </div>
+    );
+  }
+
+  // --- RENDERIZADO FINAL ---
+  const buttonClasses = "p-3 hidden md:block bg-[#505050] cursor-pointer transition-colors backdrop-blur-sm disabled:hidden disabled:cursor-not-allowed";
 
   return (
-    // Set container height (e.g., h-[400px]) to fix the Next.js warning
-    <div className="w-full h-full bg-[#505050]">
+    
+    // Agregamos los manejadores táctiles al contenedor principal
+    <div 
+      className="fixed inset-0 w-screen h-screen overflow-hidden bg-black"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       
-      {/* 🖼️ Current Image: Fades Out */}
-      <Image
-        key={images[current]} // Key is still useful for tracking
-        src={images[current]}
-        alt={`Gallery image ${current + 1}`}
-        fill={true}
-        // Tailwind classes for smooth transition: 
-        // transition-opacity: applies the transition
-        // duration-1000: sets the speed to 1 second
-        // opacity-100 / opacity-0: controlled by state
-        className={`object-cover object-center absolute transition-opacity duration-1000 ease-in-out ${
-          isFading ? 'opacity-0' : 'opacity-100'
-        }`}
-        priority={true} 
-      />
-      
-      {/* 🖼️ Next Image: Remains Invisible but is preloaded */}
-      <Image
-        key={images[next]} 
-        src={images[next]}
-        alt={`Gallery image ${next + 2}`}
-        fill={true}
-        // Starts at opacity-0 and stays there until it becomes the 'current' image
-        className={`object-cover object-center absolute opacity-0`} 
-      />
+      {/* Mapeo de todas las URLs para crear las capas de imagen */}
+      {imageUrls.map((url, index) => {
+        
+        const isActive = index === currentImageIndex;
+        const isLeaving = index === leavingImageIndex;
+        
+        let opacityClass = 'opacity-0';
+        let zIndex = 10;
+
+        if (isActive) {
+            // IMAGEN ENTRANTE: Visible y encima de la saliente
+            opacityClass = 'opacity-100';
+            zIndex = 30; 
+        } else if (isLeaving) {
+            // IMAGEN SALIENTE: Inicia fade-out y se ubica debajo de la activa
+            opacityClass = 'opacity-0';
+            zIndex = 20; 
+        }
+        
+        return (
+          <div
+            key={url}
+            className={`
+              absolute inset-0 w-full h-full 
+              bg-cover bg-center 
+              transition-opacity duration-1500 ease-in-out 
+              ${opacityClass} 
+              pointer-events-none 
+            `}
+            style={{ 
+              backgroundImage: `url(${url})`,
+              zIndex: zIndex
+            }}
+          />
+        );
+      })}
+
+      {/* Controles de Navegación (z-50) */}
+      <div className="absolute inset-0 flex items-center justify-between text-xl font-bold px-4 sm:px-7 z-50">
+        <button 
+          onClick={handlePrev} 
+          aria-label="Imagen anterior" 
+          disabled={imageUrls.length <= 1} 
+          className={buttonClasses}
+        >
+          &#10094;
+        </button>
+        <button 
+          onClick={handleNext} 
+          aria-label="Imagen siguiente" 
+          disabled={imageUrls.length <= 1} 
+          className={buttonClasses}
+        >
+          &#10095;
+        </button>
+      </div>
+
+      {/* Indicador de posición actual */}
+      <div className="absolute bottom-0 left-0 z-50 bg-[#505050] font-bold h-14 px-3 py-3">
+          {currentImageIndex + 1} / {imageUrls.length}
+      </div>
+
+      <div className="absolute bottom-0 right-0 z-50 bg-[#505050] w-15 h-14 text-4xl pb-3 px-2 pt-1 right-0">
+            <Link href={`/tipologia/${sigla}`} className="p-3  font-bold transition hover:underline">+</Link>
+      </div>
+          
+
     </div>
   );
-}
+};
+
+export default ImageGallery;

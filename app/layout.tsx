@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${helveticaNeue.className} ${helveticaNeue.variable} flex flex-col min-h-screen antialiased`}
+        className={`${helveticaNeue.className} ${helveticaNeue.variable} flex flex-col min-h-screen decoration-3 underline-offset-6 transition duration-300 antialiased`}
       >
         {children}
         <Footer/>

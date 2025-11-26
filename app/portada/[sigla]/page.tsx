@@ -1,9 +1,8 @@
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
-import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
 import BotonVolver from "@/app/components/BotonVolver";
-import Gallery from "@/app/components/gallery";
+import ImageGallery from "@/app/components/gallery";
 import { SanityImage } from "@/app/types/sanity";
 
 type Props = {
@@ -63,14 +62,8 @@ export default async function Tipologia({ params }: Props) {
       return (
          
     <main className="flex flex-grow items-center w-full p-8">
-          <Gallery images={imageUrls}/>
-      <div>
-      <div className="absolute inset-0 pointer-event-none flex flex-col items-center justify-center">
-          <div className="h-[50%]"></div>
-            <Link href={`/tipologia/${tipologia.sigla}`} className="bg-[#505050] p-3 hover:underline"> ver detalles {tipologia.sigla}</Link>
-          </div>
+          <ImageGallery imageUrls={imageUrls} sigla={tipologia.sigla}/>
           <BotonVolver/>
-      </div>
     </main>
       );
     }

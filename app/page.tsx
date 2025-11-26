@@ -27,8 +27,8 @@ export default async function IndexPage() {
       <div className="container md:pt-20 m-auto max-w-7xl">
        
       <h1 className="text-xl text-center font-bold mb-8">{portada.titulo}</h1>
-      <div className="m-auto max-w-xl">
-      <p className="text-center text-l w-full mb-8">{portada.resumen}</p>
+      <div className="m-auto max-w-md">
+      <p className="text-justify text-l w-full mb-8">{portada.resumen}</p>
       </div>
       <div className="flex flex-col md:flex-row m-auto">
         {tipologias.map((tipologia) => (

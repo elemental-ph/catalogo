@@ -62,7 +62,7 @@ export default async function Tipologia({ params }: Props) {
                     <h1 className="">{tipologia.name}</h1>
                   </div> 
 
-                  <div className="min-w-2xs"> 
+                  <div className="decoration-3 underline-offset-6 transition duration-300 min-w-2xs"> 
                          
                   
                           <p className="">{tipologia.descripcion}</p>
@@ -75,7 +75,7 @@ export default async function Tipologia({ params }: Props) {
                           <ul>
                             {tipologia.lista_proyectos.map((proyecto: Proyecto) => (
                               <li key={proyecto.texto}>
-                                <a href={proyecto.url} className="pl-10 text-bold underline">{proyecto.texto}</a>
+                                <a href={proyecto.url} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{proyecto.texto}</a>
                               </li>
                             ))}
                           </ul>
