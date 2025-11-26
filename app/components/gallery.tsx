@@ -100,7 +100,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ imageUrls, sigla }) => {
     
     // Agregamos los manejadores táctiles al contenedor principal
     <div 
-      className="fixed inset-0 w-screen h-screen overflow-hidden bg-black"
+      className="fixed inset-0 bg-black"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >

@@ -81,8 +81,14 @@ export default async function Tipologia({ params }: Props) {
                           </ul>
 
                           <p className="mt-5">Disponible en las siguientes tecnologías:</p>
-                          <a href={tipologia.link_empresa_1} className="pl-10 block underline">{tipologia.link_empresa_1}</a>
-                          <a href={tipologia.link_empresa_2} className="pl-10 block underline">{tipologia.link_empresa_2}</a>
+                          <ul>
+                            <li>
+                          <a href={tipologia.link_empresa_1} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_1}</a>
+                          </li>
+                          <li>
+                          <a href={tipologia.link_empresa_2} className="pl-10 text-bold decoration-3 underline-offset-6 transition duration-300 underline">{tipologia.link_empresa_2}</a>
+                          </li>
+                          </ul>
 
                  
                   </div>  
