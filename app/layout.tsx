@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Footer from "./components/Footer"
 import { helveticaNeue } from "./ui/fonts";
@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "VIVIENDA INDUSTRIALIZADA ELEMENTAL",
   description: "Casas diseñadas por ELEMENTAL con tecnologías industrializadas para proyectos DS19, DS49 y situaciones de emergencia.",
   keywords: "vivienda, social, DS49, incremental, elemental, alejandro aravena, arquitectura, entidad patrocinante, casas, industrializada, industrialización"
+};
+
+export const viewport: Viewport = {
+  themeColor: '#505050'
 };
 
 
