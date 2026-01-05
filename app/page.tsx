@@ -13,7 +13,9 @@ const TIPOLOGIAS_QUERY = `*[
 
 const PORTADA_QUERY = `*[
   _type == "portada"
-][0]`;
+][0]{
+  resumen
+}`;
 
 const options = { next: { revalidate: 30 } };
 
@@ -24,15 +26,18 @@ export default async function IndexPage() {
   return (
     
     <main className="flex flex-grow items-center w-full p-8">
+      
       <div className="container md:pt-20 m-auto max-w-7xl">
        
       <h1 className="text-xl text-center font-bold mb-8">{portada.titulo}</h1>
       <div className="m-auto max-w-md">
-      <p className="text-justify text-l w-full mb-8">{portada.resumen}</p>
+        <div className="text-center text-l w-full mb-8">
+      <PortableText  value={portada.resumen}/>
+      </div>
       </div>
       <div className="flex flex-col md:flex-row m-auto">
         {tipologias.map((tipologia) => (
-          <Link href={`/portada/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
+          <Link href={`/tipologia/${tipologia.sigla}`} className="group hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
               <div className="bg-neutral-400 md:opacity-75 transition group-hover:opacity-100 md:bg-transparent invert">
               <Image 
@@ -48,6 +53,7 @@ export default async function IndexPage() {
         ))}
       </div>
       </div>
+
     </main>
   );
 }

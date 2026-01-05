@@ -25,10 +25,6 @@ interface ComparacionProps {
 const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDespues }) => {
   // Un estilo simple para el contenedor, puedes ajustarlo en tu CSS global o módulos.
   const containerStyle: React.CSSProperties = {
-    maxWidth: '100%', // Ajusta el tamaño máximo de la comparación
-    display: 'flex',
-    alignItems: 'flex-start',
-    overflow: '', // Asegura que las imágenes se ajusten al contenedor
   };
 
   // Estilo para la línea separadora: más gruesa y de color primario
@@ -81,7 +77,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
             src={urlImagenAntes} 
             alt="Imagen Antes" 
             style={{ 
-            maxHeight:'60vh' }} // Asegura que la imagen cubra el espacio
+            maxHeight:'120vh' }} // Asegura que la imagen cubra el espacio
           />
         }
         
@@ -91,7 +87,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
             src={urlImagenDespues} 
             alt="Imagen Después" 
             style={{
-              maxHeight:'60vh' 
+              maxHeight:'120vh' 
              }} // Asegura que la imagen cubra el espacio
           />
         }

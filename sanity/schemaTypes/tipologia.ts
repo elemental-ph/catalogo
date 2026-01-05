@@ -2,62 +2,47 @@ import { defineField, defineType } from 'sanity';
 
 export default {
   name: 'tipologia',
-  title: 'Tipologia',
+  title: 'Tipologias',
   type: 'document',
   fields: [
     {
-      name: 'sort',
-      title: 'sort',
-      type: 'number',
+      name: 'icono',
+      title: 'Icono',
+      type: 'image',
+    },
+    {
+      name: 'icono_ampliado',
+      title: 'Icono ampliado',
+      type: 'image',
     },
     {
       name: 'sigla',
-      title: 'sigla',
+      title: 'Sigla tipología',
       type: 'string',
     },
     {
       name: 'name',
-      title: 'name',
+      title: 'Nombre tipología',
       type: 'string',
+    },
+    {
+      name: 'sort',
+      title: 'Sort',
+      type: 'number',
     },
     {
       name: 'descripcion',
-      title: 'descripcion',
-      type: 'text',
-    },
-    {
-      name: 'pisos',
-      title: 'Pisos',
-      type: 'string',
-    },
-    {
-      name: 'superficie',
-      title: 'superficie',
-      type: 'string',
-    },
-    {
-      name: 'superficie_inicial',
-      title: 'superficie_inicial',
-      type: 'number',
-    },
-    {
-      name: 'superficie_ampliada',
-      title: 'superficie_ampliada',
-      type: 'number',
-    },
-    {
-      name: 'densidad_maxima',
-      title: 'densidad_maxima',
-      type: 'number',
-    },
-    {
-      name: 'icono',
-      title: 'icono',
-      type: 'image',
+      title: 'Texto introductorio',
+      type: 'array',
+      of: [
+        {
+          type: 'block'
+        }
+      ]
     },
     {
       name: 'imagen_portada',
-      title: 'imagen portada',
+      title: 'Foto unidad',
       type: 'image',
       options: {
             hotspot: true, // Allows content editors to define a hotspot for image cropping
@@ -65,34 +50,22 @@ export default {
       fields: [
             defineField({
               name: 'alt',
+              title: 'Caption',
               type: 'string',
-              title: 'Alternative text',
               description: 'Alt text for accessibility and SEO',
               validation: (Rule) => Rule.required(),
             }),
           ],
     },
     {
-      name: 'lista_imagenes',
-      title: 'lista imagenes',
+      name: 'ficha_tecnica',
+      title: 'Ficha Tecnica',
       type: 'array',
       of: [
         {
-          type: 'image',
-          options: {
-            hotspot: true, // Allows content editors to define a hotspot for image cropping
-          },
-          fields: [
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Alt text for accessibility and SEO',
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
-        },
-      ],
+          type: 'block'
+        }
+      ]
     },
     {
       name: 'planta_inicial',
@@ -105,37 +78,19 @@ export default {
       type: 'image',
     },
     {
-      name: 'link_empresa_1',
-      title: 'link empresa 1',
-      type: 'string',
-    },
-    {
-      name: 'link_empresa_2',
-      title: 'link empresa 2',
-      type: 'string',
-    },
-    {
-      name: 'link_empresa_3',
-      title: 'link empresa 3',
-      type: 'string',
-    },
-    {
       name: 'recintos',
-      title: 'recintos',
+      title: 'Recintos',
       type: 'text',
     },
-    {
-      name: 'lista_proyectos',
-      title: 'lista_proyectos',
-      type: 'array',
-      of: [
         {
-          type: 'reference',
-          to: [
-           {type: 'proyecto'},
-           ],
-        },
-      ],
+      name: 'render_inicial',
+      title: 'Render barrio incial',
+      type: 'image',
+    },
+    {
+      name: 'render_ampliacion',
+      title: 'Render barrio con ampliaciones',
+      type: 'image',
     },
   ],
 };
