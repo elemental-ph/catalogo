@@ -42,22 +42,39 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
       // Now you can safely use sigla
       return (
          
-    <main className="mt-[130px] pb-[50px] px-6 md:px-8 grid md:grid-cols-4 gap-15">
+    <main className="mt-[130px] pb-[50px] px-6 md:px-8 grid md:grid-cols-4 gap-10 md:gap-15">
                   
                   <div className="text-center md:col-span-4"> 
                       <h2 className="font-bold">{tipologia.sigla}</h2>
                       <h2 className="">{tipologia.name}</h2>
                   </div> 
                   
-                  <div className="md:col-span-4 h-full"> 
+                  <div className="md:hidden md:col-span-4 h-full"> 
+                    <div className="relative aspect-square"> 
                         <Image 
                           src={urlFor(tipologia.imagen_portada).url()}
                           alt={tipologia.imagen_portada.alt || 'Sanity Image'}
-                          width={2000} // Specify width
-                          height={2000} // Specify height
+                          fill={true}
+                          style={{ objectFit: 'cover' }} 
+                          sizes="(max-width: 768px) 100vw, 50vw" 
+                          priority
                         />
+                    </div>   
                         <p className="italic">{tipologia.imagen_portada.alt}</p>
                   </div>    
+
+                  <div className="hidden md:block md:col-span-4 h-full"> 
+                    <div className=""> 
+                        <Image 
+                          src={urlFor(tipologia.imagen_portada).url()}
+                          alt={tipologia.imagen_portada.alt || 'Sanity Image'}
+                          height={2000}
+                          width={2000}
+                          priority
+                        />
+                    </div>   
+                        <p className="italic">{tipologia.imagen_portada.alt}</p>
+                  </div>
 
                   
 
@@ -65,12 +82,22 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                     <div className="whitespace-pre-line">
                           <PortableText  value={tipologia.descripcion}/>
                     </div> 
+
+                    <div className="md:hidden mt-10"> 
+                          <Comparacion 
+                            urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
+                            urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
+                          /> 
+                    <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
+                    <p className="mt-3 text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
+                  </div>
+
                     <div className="whitespace-pre-line pt-10"> 
                           <PortableText  value={tipologia.ficha_tecnica}/>
                     </div>  
                   </div>
 
-                  <div className=""> 
+                  <div className="hidden md:block"> 
                           <Comparacion 
                             urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
