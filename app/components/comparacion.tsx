@@ -24,7 +24,10 @@ interface ComparacionProps {
  */
 const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDespues }) => {
   // Un estilo simple para el contenedor, puedes ajustarlo en tu CSS global o módulos.
-  const containerStyle: React.CSSProperties = {
+const containerStyle: React.CSSProperties = {
+    width: '100%',
+    height: '100%', // O un alto fijo como '500px'
+    overflow: 'hidden'
   };
 
   // Estilo para la línea separadora: más gruesa y de color primario
@@ -66,7 +69,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
 
         // 2. Aplicar el Handle personalizado
         handle={CustomHandle}
-    
+        style={{ width: '100%', height: '100%' }}
 
         boundsPadding={0}
         // itemChangeDelay={200} // Puedes añadir un ligero retraso si quieres
@@ -76,8 +79,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
           <ReactCompareSliderImage 
             src={urlImagenAntes} 
             alt="Imagen Antes" 
-            style={{ 
-            maxHeight:'120vh' }} // Asegura que la imagen cubra el espacio
+            style={styleFitContainer as React.CSSProperties} // Asegura que la imagen cubra el espacio
           />
         }
         
@@ -86,9 +88,7 @@ const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDesp
           <ReactCompareSliderImage 
             src={urlImagenDespues} 
             alt="Imagen Después" 
-            style={{
-              maxHeight:'120vh' 
-             }} // Asegura que la imagen cubra el espacio
+            style={styleFitContainer as React.CSSProperties} // Asegura que la imagen cubra el espacio
           />
         }
       />
