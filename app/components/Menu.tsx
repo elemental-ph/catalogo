@@ -16,6 +16,7 @@ export default async function Menu() {
   return (
         <div className="flex flex-row">
         {tipologias.map((tipologia) => (
+          
           <Link href={`/tipologia/${tipologia.sigla}`} className="pointer-events-auto decoration-3 underline-offset-6 transition duration-300 hover:underline" key={tipologia._id}>
 
               <h1 className="pr-5">{tipologia.sigla}</h1>

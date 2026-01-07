@@ -87,7 +87,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                   <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line">
                     <div className="whitespace-pre-line">
                           <PortableText  value={tipologia.descripcion}/>
-                    </div> 
+                    </div>
 
                     <div className="md:hidden mt-10"> 
                           <Comparacion 
