@@ -106,7 +106,7 @@ export default function ContactoPage() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-400"
+            className="w-full bg-transparent border text-white py-3 cursor-pointer rounded-lg font-semibold hover:bg-gray-800 transition disabled:bg-gray-400"
           >
             {status === "loading" ? "Enviando..." : "Enviar Mensaje"}
           </button>
