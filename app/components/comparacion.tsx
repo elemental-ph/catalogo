@@ -14,6 +14,7 @@ interface ComparacionProps {
   urlImagenAntes: string;
   /** URL de la imagen que estará en la parte 'después' o 'frente'. */
   urlImagenDespues: string;
+  fit?: boolean;
 }
 
 /**
@@ -22,7 +23,10 @@ interface ComparacionProps {
  * * @param {ComparacionProps} props - Las URLs de las dos imágenes.
  * @returns {JSX.Element} El componente de comparación.
  */
-const Comparacion: React.FC<ComparacionProps> = ({ urlImagenAntes, urlImagenDespues }) => {
+const Comparacion: React.FC<ComparacionProps> = ({ 
+  urlImagenAntes, 
+  urlImagenDespues, 
+  fit = true }) => {
   // Un estilo simple para el contenedor, puedes ajustarlo en tu CSS global o módulos.
 const containerStyle: React.CSSProperties = {
     width: '100%',
