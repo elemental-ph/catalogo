@@ -82,8 +82,6 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                         <p className="italic">{tipologia.imagen_portada.alt}</p>
                   </div>
 
-                  
-
                   <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line">
                     <div className="whitespace-pre-line">
                           <PortableText  value={tipologia.descripcion}/>
@@ -115,11 +113,13 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                   </div>
 
                   <div className="xl:col-span-2"> 
+                    <div className="relative aspect-square md:aspect-auto"> 
                       <Comparacion 
                           urlImagenAntes={urlFor(tipologia.render_ampliacion).url()} 
                           urlImagenDespues={urlFor(tipologia.render_inicial).url()} 
                       /> 
                       <p className="mt-3 text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
+                      </div>     
                   </div>      
     </main>
       );
