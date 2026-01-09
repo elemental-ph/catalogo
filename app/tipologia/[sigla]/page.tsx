@@ -12,6 +12,10 @@ const components = {
   hardBreak: () => <br />,
 };
 
+function getPositionFromHotspot(hotspot: { x: number; y: number } | undefined) {
+  if (!hotspot) return 'center';
+  return `${hotspot.x * 100}% ${hotspot.y * 100}%`;
+}
 // Define esta interfaz en tu archivo de componentes o en un archivo de tipos separado
 interface Proyecto {
   texto: string;
@@ -61,7 +65,9 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                           src={urlFor(tipologia.imagen_portada).url()}
                           alt={tipologia.imagen_portada.alt || 'Sanity Image'}
                           fill={true}
-                          style={{ objectFit: 'cover' }} 
+                          style={{ objectFit: 'cover',
+                            objectPosition: getPositionFromHotspot(tipologia.imagen_portada?.hotspot),
+                           }} 
                           sizes="(max-width: 768px) 100vw, 50vw" 
                           priority
                         />
@@ -91,9 +97,10 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                           <Comparacion 
                             urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
+                            posicionInicial={5}
                           /> 
                     <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
-                    <p className="mt-3 text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
+                    <p className="mt-3 text-center text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
                   </div>
 
                     <div className="whitespace-pre-line pt-10"> 
@@ -106,10 +113,11 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                           <Comparacion 
                             urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
                             urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
+                            posicionInicial={5}
                           /> 
                     </div>
                     <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
-                    <p className="mt-3 text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
+                    <p className="mt-3 text-center text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
                   </div>
 
                   <div className="xl:col-span-2"> 
@@ -117,8 +125,9 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                       <Comparacion 
                           urlImagenAntes={urlFor(tipologia.render_ampliacion).url()} 
                           urlImagenDespues={urlFor(tipologia.render_inicial).url()} 
+                          posicionInicial={50}
                       /> 
-                      <p className="mt-3 text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
+                      <p className="mt-3 text-[#ffe900] text-center min-w-3xs">deslizar para ver ampliaciones</p>
                       </div>     
                   </div>      
     </main>

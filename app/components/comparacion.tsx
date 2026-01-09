@@ -14,33 +14,30 @@ interface ComparacionProps {
   urlImagenAntes: string;
   /** URL de la imagen que estará en la parte 'después' o 'frente'. */
   urlImagenDespues: string;
+  /** Permite elegir donde parte el slider (0 a 100). Por defecto 50. */
+  posicionInicial?: number; 
   fit?: boolean;
 }
 
 /**
  * Componente que muestra dos imágenes superpuestas con un slider para compararlas.
- * Utiliza la librería 'react-compare-slider'.
- * * @param {ComparacionProps} props - Las URLs de las dos imágenes.
- * @returns {JSX.Element} El componente de comparación.
  */
 const Comparacion: React.FC<ComparacionProps> = ({ 
   urlImagenAntes, 
   urlImagenDespues, 
-  fit = true }) => {
-  // Un estilo simple para el contenedor, puedes ajustarlo en tu CSS global o módulos.
-const containerStyle: React.CSSProperties = {
+  posicionInicial = 50, // Valor por defecto en el centro
+  fit = true 
+}) => {
+
+  const containerStyle: React.CSSProperties = {
     width: '100%',
-    height: '100%', // O un alto fijo como '500px'
+    height: '100%', 
     overflow: 'hidden'
   };
 
-  // Estilo para la línea separadora: más gruesa y de color primario
-
-// 1. El Handle (manejador) personalizado
+  // 1. El Handle (manejador) personalizado
   const CustomHandle = (
     <ReactCompareSliderHandle
-      // El handle personalizado define el estilo de la línea visible al 
-      // establecer un borde o sombra en el handle mismo.
       style={{
         color: '#ffe900',
         display: 'flex',
@@ -54,45 +51,37 @@ const containerStyle: React.CSSProperties = {
         width:'35px',
         height:'35px',
         color: '#505050',
-        boxShadow: '',
+        boxShadow: '0 0 10px rgba(0,0,0,0.3)',
         border: '1px solid #ffe900'
       }}
     >
-      {'<>'}
+      {'<test>'}
     </ReactCompareSliderHandle>
   );
 
   return (
     <div style={containerStyle}>
-      {/* El componente ReactCompareSlider recibe los dos elementos de la comparación 
-        como props 'itemOne' y 'itemTwo'.
-      */}
       <ReactCompareSlider
-        // Ajuste para el desplazamiento del slider (horizontal por defecto)
-        position={0} // Inicia el slider a la mitad (50%)
+        // USAMOS EL PARÁMETRO AQUÍ:
+        position={posicionInicial} 
 
-        // 2. Aplicar el Handle personalizado
         handle={CustomHandle}
         style={{ width: '100%', height: '100%' }}
-
         boundsPadding={0}
-        // itemChangeDelay={200} // Puedes añadir un ligero retraso si quieres
         
-        // Imagen 1: La que está detrás (Antes)
         itemOne={
           <ReactCompareSliderImage 
             src={urlImagenAntes} 
             alt="Imagen Antes" 
-            style={styleFitContainer as React.CSSProperties} // Asegura que la imagen cubra el espacio
+            style={styleFitContainer as React.CSSProperties}
           />
         }
         
-        // Imagen 2: La que está delante (Después)
         itemTwo={
           <ReactCompareSliderImage 
             src={urlImagenDespues} 
             alt="Imagen Después" 
-            style={styleFitContainer as React.CSSProperties} // Asegura que la imagen cubra el espacio
+            style={styleFitContainer as React.CSSProperties}
           />
         }
       />

@@ -7,7 +7,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { nombre, apellido, email, asunto, mensaje } = body;
+    const { nombre, apellido, email, tipo_cliente, cuenta_con_terreno, asunto, mensaje } = body;
 
     const data = await resend.emails.send({
       from: 'Contacto Web <onboarding@resend.dev>', // Cambia esto por tu dominio verificado
@@ -17,6 +17,8 @@ export async function POST(request: Request) {
       html: `
         <h2>Nuevo mensaje de contacto</h2>
         <p><strong>De:</strong> ${nombre} ${apellido} (${email})</p>
+        <p><strong>Tipo de cliente:</strong> ${tipo_cliente}</p>
+        <p><strong>Cuenta con terreno:</strong> ${cuenta_con_terreno}</p>
         <p><strong>Asunto:</strong> ${asunto}</p>
         <p><strong>Mensaje:</strong></p>
         <p>${mensaje}</p>
