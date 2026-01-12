@@ -35,9 +35,9 @@ export default async function IndexPage() {
       <PortableText  value={portada.resumen}/>
       </div>
       </div>
-      <div className="flex flex-col md:flex-row m-auto">
+      <div className="flex flex-col xl:flex-row m-auto">
         {tipologias.map((tipologia) => (
-          <Link href={`/tipologia/${tipologia.sigla}`} className="group flex flex-end mt-auto hover:cursor-pointer" key={tipologia._id}>
+          <Link href={`/tipologia/${tipologia.sigla}`} className="group flex flex-end mt-auto mx-auto hover:cursor-pointer" key={tipologia._id}>
           <li className="flex flex-col items-center" >
               <div className="bg-neutral-400 md:opacity-75 transition group-hover:opacity-100 bg-transparent invert">
               <Image 
