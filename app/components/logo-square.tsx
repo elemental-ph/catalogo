@@ -4,7 +4,6 @@ interface LogoProps {
 
 const LogoSquare = ({ fillColor = '#000' }: LogoProps) => {
   return (
-    <div className='pointer-events-auto w-300' >
       <svg 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 304.64 257.89">
@@ -19,7 +18,6 @@ const LogoSquare = ({ fillColor = '#000' }: LogoProps) => {
         <path d="M105.77,180.47v77.42h13V225.66H186v32.23h12.85V180.47ZM186,212.7H118.73V193.43H186Z"/>
         <g id="LWPOLYLINE-8" data-name="LWPOLYLINE"><polygon  points="211.53 257.89 211.53 180.47 224.38 180.47 224.38 244.93 304.64 244.93 304.64 257.89 211.53 257.89 211.53 257.89"/></g></g></g>
         </svg>
-    </div>
   )
 }
 

@@ -30,8 +30,7 @@ export default async function Image() {
           padding: '20px',
         }}
       >
-                    <LogoSquare
-                      />
+                    <LogoSquare/>
       </div>
     ),
     {
