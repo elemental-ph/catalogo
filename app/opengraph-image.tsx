@@ -1,30 +1,19 @@
 import { ImageResponse } from 'next/og';
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
+import LogoSquare from './components/logo-square';
 
 // Image metadata
 export const size = {
-  width: 1200,
+  width: 630,
   height: 630,
 };
-export const alt = 'About our website';
+
 export const contentType = 'image/png';
 export const runtime = 'edge'; // Recommended for performance
 
-type Props = {
-      params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
-    };
 
-export default async function Image({ params }: Props) {
+export default async function Image() {
   // You can fetch dynamic data here
   // const data = await fetch(...);
-const { sigla } = await params;
-const query = `*[_type == "tipologia" && sigla == $sigla][0]{
-    icono,
-    imagen_portada,
-    }`;
-
-const tipologia = await client.fetch(query, { sigla });
 
   return new ImageResponse(
     (
@@ -41,9 +30,7 @@ const tipologia = await client.fetch(query, { sigla });
           padding: '20px',
         }}
       >
-                    <img
-                      src={urlFor(tipologia.imagen_portada).url()}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    <LogoSquare
                       />
       </div>
     ),
