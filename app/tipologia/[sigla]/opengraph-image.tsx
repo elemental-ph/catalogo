@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { client } from "@/sanity/lib/client";
-import { NextRequest } from 'next/server';
-
+import { urlFor } from "@/sanity/lib/image";
+import Image from 'next/image';
 
 // Image metadata
 export const size = {
@@ -29,11 +29,12 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     imagen_portada,
     }`;
 
+const tipologia = await client.fetch(query, { sigla });
+
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: 60,
           background: 'white',
           width: '100%',
           height: '100%',
@@ -44,8 +45,11 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
           padding: '20px',
         }}
       >
-        <h1>TEST</h1>
-        <p>probando contenido dinamico para links. tipología: {sigla}</p>
+                    <img
+                      src={urlFor(tipologia.icono).url()}
+                      width="450" // Specify width
+                      height="450" // Specify height
+                      />
       </div>
     ),
     {
