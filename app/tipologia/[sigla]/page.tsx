@@ -20,8 +20,48 @@ type Props = {
       params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
     };
 
+// This function generates the text metadata
+export async function generateMetadata({ params }: Props) {
+  const { sigla } = await params;
+const query = `*[_type == "tipologia" && sigla == $sigla][0]{
+    _id,
+    name,
+    sigla,
+    icono,
+    descripcion, 
+    imagen_portada,
+    ficha_tecnica,
+    planta_inicial,
+    planta_ampliacion,
+    recintos,
+    render_inicial,
+    render_ampliacion,
+    }`;
+
+    const tipologia = await client.fetch(query, { sigla });
+  const postTitle = `My Blog Post: ${tipologia.sigla}`;
+  const postDescription = `An insightful article about ${tipologia.name}.`;
+  
+  return {
+    title: postTitle,
+    description: postDescription,
+    openGraph: {
+      title: postTitle,
+      description: postDescription,
+      // The opengraph-image.tsx in this directory handles the 'images' property automatically
+      siteName: 'My Awesome Blog',
+      type: 'article', // specifies content type
+    },
+    twitter: {
+      card: 'summary_large_image', // specifies Twitter card type
+      title: postTitle,
+      description: postDescription,
+    },
+  };
+}
+
 export default async function Tipologia({ params }: Props) {
-    const { sigla } = await params;
+const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     _id,
     name,
