@@ -38,7 +38,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     render_ampliacion,
     }`;
 
-    const tipologia = await client.fetch(query, { sigla });
+  const tipologia = await client.fetch(query, { sigla });
   const postTitle = `ELEMENTAL PREFAB`;
   const postDescription = `Tipología ${tipologia.sigla} - ${tipologia.name}. Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.`;
   

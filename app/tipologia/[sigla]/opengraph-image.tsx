@@ -38,7 +38,6 @@ const tipologia = await client.fetch(query, { sigla });
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          padding: '20px',
         }}
       >
                     <img
