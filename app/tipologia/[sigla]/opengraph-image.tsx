@@ -35,6 +35,7 @@ const tipologia = await client.fetch(query, { sigla });
       <div
         style={{
           background: 'white',
+          position: "relative",
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -46,8 +47,7 @@ const tipologia = await client.fetch(query, { sigla });
       >
                     <img
                       src={urlFor(tipologia.icono).url()}
-                      width="450" // Specify width
-                      height="450" // Specify height
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
       </div>
     ),
