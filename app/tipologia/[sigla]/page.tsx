@@ -40,7 +40,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
 
   const tipologia = await client.fetch(query, { sigla });
   const postTitle = `${tipologia.sigla} - ${tipologia.name}`;
-  const postDescription = `${tipologia.descripcion}`;
+  const postDescription = `Diseño por ELEMENTAL con tecnología industrializada`;
   
   return {
     title: postTitle,
