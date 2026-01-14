@@ -4,24 +4,17 @@ import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
 import Comparacion from '../../components/comparacion'
+import { Metadata } from 'next';
 
 
 
-const components = {
-  // ... other components
-  hardBreak: () => <br />,
-};
+
 
 function getPositionFromHotspot(hotspot: { x: number; y: number } | undefined) {
   if (!hotspot) return 'center';
   return `${hotspot.x * 100}% ${hotspot.y * 100}%`;
 }
-// Define esta interfaz en tu archivo de componentes o en un archivo de tipos separado
-interface Proyecto {
-  texto: string;
-  url: string;
-  // Agrega cualquier otra propiedad que pueda tener un proyecto
-}
+
 
 type Props = {
       params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
@@ -104,7 +97,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                   </div>
 
                     <div className="whitespace-pre-line pt-10"> 
-                          <PortableText  value={tipologia.ficha_tecnica} components={components}/>
+                          <PortableText  value={tipologia.ficha_tecnica}/>
                     </div>  
                   </div>
 
