@@ -7,7 +7,7 @@ import { helveticaNeue } from "./ui/fonts";
 
 export const metadata: Metadata = {
   title: "ELEMENTAL PREFAB",
-  description: "Casas diseñadas por ELEMENTAL con tecnología industrializada.",
+  description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
   keywords: "vivienda, social, DS49, incremental, elemental, alejandro aravena, vivienda de emergencia, arquitectura, entidad patrocinante, casas, industrializada, industrialización"
 };
 
