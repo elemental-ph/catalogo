@@ -39,8 +39,8 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     }`;
 
     const tipologia = await client.fetch(query, { sigla });
-  const postTitle = `Tipología ${tipologia.sigla} - ${tipologia.name}`;
-  const postDescription = `Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.`;
+  const postTitle = `ELEMENTAL PREFAB`;
+  const postDescription = `Tipología ${tipologia.sigla} - ${tipologia.name}. Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.`;
   
   return {
     title: postTitle,
