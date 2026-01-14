@@ -1,7 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import Image from 'next/image';
 
 // Image metadata
 export const size = {
