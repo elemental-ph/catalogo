@@ -7,7 +7,7 @@ export const size = {
   width: 1200,
   height: 630,
 };
-export const alt = 'About our website';
+export const alt = 'ELEMENTAL PREFAB';
 export const contentType = 'image/png';
 export const runtime = 'edge'; // Recommended for performance
 
@@ -41,8 +41,12 @@ const tipologia = await client.fetch(query, { sigla });
         }}
       >
                     <img
-                      src={urlFor(tipologia.imagen_portada).url()}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      src={urlFor(tipologia.imagen_portada)
+                        .width(1200) // Optimal width
+                        .height(630) // Optimal height
+                        .fit('crop') // Crops to maintain aspect ratio, using Sanity's smart cropping if available
+                        .quality(75)
+                        .url()}
                       />
       </div>
     ),
