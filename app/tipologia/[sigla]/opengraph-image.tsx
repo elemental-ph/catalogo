@@ -20,11 +20,7 @@ export default async function Image({ params }: Props) {
   // const data = await fetch(...);
 const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
-    _id,
-    name,
-    sigla,
     icono,
-    descripcion, 
     imagen_portada,
     }`;
 
@@ -46,7 +42,7 @@ const tipologia = await client.fetch(query, { sigla });
         }}
       >
                     <img
-                      src={urlFor(tipologia.icono).url()}
+                      src={urlFor(tipologia.imagen_portada).url()}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
       </div>

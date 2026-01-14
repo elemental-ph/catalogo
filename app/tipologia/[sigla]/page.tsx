@@ -39,8 +39,8 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     }`;
 
     const tipologia = await client.fetch(query, { sigla });
-  const postTitle = `My Blog Post: ${tipologia.sigla}`;
-  const postDescription = `An insightful article about ${tipologia.name}.`;
+  const postTitle = `Tipología ${tipologia.sigla} - ${tipologia.name}`;
+  const postDescription = `Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.`;
   
   return {
     title: postTitle,
@@ -49,8 +49,6 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
       title: postTitle,
       description: postDescription,
       // The opengraph-image.tsx in this directory handles the 'images' property automatically
-      siteName: 'My Awesome Blog',
-      type: 'article', // specifies content type
     },
     twitter: {
       card: 'summary_large_image', // specifies Twitter card type
