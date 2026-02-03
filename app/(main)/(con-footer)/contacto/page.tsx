@@ -57,7 +57,7 @@ export default function ContactoPage() {
             type="text"
             required
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Ej: Juan"
+            placeholder="Ej: Andrea"
           />
         </div>
 
@@ -69,7 +69,7 @@ export default function ContactoPage() {
             type="text"
             required
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Ej: Pérez"
+            placeholder="Ej: Muñoz"
           />
         </div>
 
@@ -97,8 +97,9 @@ export default function ContactoPage() {
             <option className="text-black" value="comite">Comité de Vivienda</option>
             <option className="text-black" value="municipio">Municipio</option>
             <option className="text-black" value="EP">EP (Entidad Patrocinante)</option>
-            <option className="text-black" value="constructora">Constructora</option>
+            <option className="text-black" value="constructora">Constructora/Inmobiliaria</option>
             <option className="text-black" value="particular">Particular</option>
+            <option className="text-black" value="particular">Otro</option>
           </select>
         </div>
 
@@ -159,6 +160,14 @@ export default function ContactoPage() {
           <p className="md:col-span-3 text-red-600 font-medium text-center">Hubo un error. Intenta de nuevo.</p>
         )}
       </form>
+            <div>
+      <p className="text-center mt-10">Los Conquistadores 1700 Piso 29-A</p>
+      <p className="text-center">Providencia 7520282</p>
+      <p className="text-center">Chile</p>   
+      <p className="text-center">
+      <a className="text-center" href="tel:+56229637500">Tel: +56 229 637 500</a>
+      </p>
+      </div>
     </div>
   );
 }

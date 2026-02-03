@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import LogoSquare from './components/logo-square';
+import LogoSquare from '../components/logo-square';
 
 // Image metadata
 export const size = {

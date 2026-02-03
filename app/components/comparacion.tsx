@@ -8,24 +8,25 @@ import {
   styleFitContainer 
 } from 'react-compare-slider';
 
-// Definición de las Props que recibirá el componente
 interface ComparacionProps {
-  /** URL de la imagen que estará en la parte 'antes' o 'fondo'. */
   urlImagenAntes: string;
-  /** URL de la imagen que estará en la parte 'después' o 'frente'. */
   urlImagenDespues: string;
-  /** Permite elegir donde parte el slider (0 a 100). Por defecto 50. */
+  /** * AHORA ES CRÍTICO: 'posicion' controla el estado desde afuera.
+   * Si no se envía, usará 'posicionInicial'.
+   */
+  posicion?: number; 
+  /** Callback que informa al padre que el usuario movió este slider */
+  onPosicionChange?: (val: number) => void; 
   posicionInicial?: number; 
   fit?: boolean;
 }
 
-/**
- * Componente que muestra dos imágenes superpuestas con un slider para compararlas.
- */
 const Comparacion: React.FC<ComparacionProps> = ({ 
   urlImagenAntes, 
   urlImagenDespues, 
-  posicionInicial = 50, // Valor por defecto en el centro
+  posicion, 
+  onPosicionChange,
+  posicionInicial, 
   fit = true 
 }) => {
 
@@ -35,8 +36,10 @@ const Comparacion: React.FC<ComparacionProps> = ({
     overflow: 'hidden'
   };
 
-  // 1. El Handle (manejador) personalizado
   const CustomHandle = (
+    <div style={{alignItems: 'center', display: 'flex', height: '100%', position: 'relative'}}>
+      <span style={{width: '20px', color: '#ffe900', padding: '5px'}}>
+      </span> 
     <ReactCompareSliderHandle
       style={{
         color: '#ffe900',
@@ -45,25 +48,34 @@ const Comparacion: React.FC<ComparacionProps> = ({
         justifyContent: 'center',
       }}
       buttonStyle={{
-        backdropFilter: undefined,
-        WebkitBackdropFilter: undefined,
-        backgroundColor: '#ffe900',
-        width:'35px',
-        height:'35px',
-        color: '#505050',
-        boxShadow: '0 0 10px rgba(0,0,0,0.3)',
-        border: '1px solid #ffe900'
+        backgroundColor: 'transparent',
+        width:'40px',
+        height:'40px',
+        color: '#ffe900',
+        filter: 'none',
+        boxShadow: '0 0 0px rgba(0,0,0,0.3)',
+        border: '2px solid #ffe900'
       }}
     >
-      {'<test>'}
+    
     </ReactCompareSliderHandle>
+    <span style={{width: '20px', transition: 'opacity 0.25s ease-in-out', color: '#ffe900', padding: '5px'}}>
+      deslizar</span> 
+    </div>
   );
 
   return (
     <div style={containerStyle}>
       <ReactCompareSlider
-        // USAMOS EL PARÁMETRO AQUÍ:
-        position={posicionInicial} 
+        /** * CAMBIO 1: Si existe 'posicion' (controlado por el padre), la usamos.
+         * Si no, cae en 'posicionInicial'.
+         */
+        position={posicion !== undefined ? posicion : posicionInicial} 
+
+        /** * CAMBIO 2: Escuchamos el movimiento del usuario.
+         * Cuando el usuario arrastra el slider, ejecutamos la función del padre.
+         */
+        onPositionChange={onPosicionChange}
 
         handle={CustomHandle}
         style={{ width: '100%', height: '100%' }}

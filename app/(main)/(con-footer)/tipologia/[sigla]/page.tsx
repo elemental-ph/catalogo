@@ -3,8 +3,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
-import Comparacion from '../../components/comparacion'
-import { Metadata } from 'next';
+import ComparadoresSincronizados from "@/app/components/ComparadoresSincronizados";
 
 
 
@@ -111,11 +110,11 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                         <Image 
                           src={urlFor(tipologia.imagen_portada).url()}
                           alt={tipologia.imagen_portada.alt || 'Sanity Image'}
-                          height={2000}
-                          width={2000}
+                          height={3000}
+                          width={3000}
                           priority
                         />
-                    </div>   
+                    </div>
                         <p className="italic">{tipologia.imagen_portada.alt}</p>
                   </div>
 
@@ -124,42 +123,28 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                           <PortableText  value={tipologia.descripcion}/>
                     </div>
 
-                    <div className="md:hidden mt-10"> 
-                          <Comparacion 
-                            urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
-                            urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
-                            posicionInicial={5}
-                          /> 
-                    <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
-                    <p className="mt-3 text-center text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
-                  </div>
 
-                    <div className="whitespace-pre-line pt-10"> 
+                    <div className="hidden md:block whitespace-pre-line pt-10"> 
                           <PortableText  value={tipologia.ficha_tecnica}/>
                     </div>  
                   </div>
 
-                  <div className="hidden md:block xl:col-span-1"> 
-                    <div>
-                          <Comparacion 
-                            urlImagenAntes={urlFor(tipologia.planta_ampliacion).url()} 
-                            urlImagenDespues={urlFor(tipologia.planta_inicial).url()} 
-                            posicionInicial={5}
-                          /> 
-                    </div>
-                    <p className="mt-3 text-xs italic whitespace-pre-line">{tipologia.recintos}</p>
-                    <p className="mt-3 text-center text-[#ffe900] min-w-3xs">deslizar para ver ampliaciones</p>
-                  </div>
+                  <ComparadoresSincronizados 
+                    data={{
+                      planta_ampliacion: urlFor(tipologia.planta_ampliacion).url(),
+                      planta_inicial: urlFor(tipologia.planta_inicial).url(),
+                      render_ampliacion: urlFor(tipologia.render_ampliacion).url(),
+                      render_inicial: urlFor(tipologia.render_inicial).url(),
+                    }}
+                  />
+
+
 
                   <div className="xl:col-span-2"> 
-                    <div className="relative aspect-square md:aspect-auto"> 
-                      <Comparacion 
-                          urlImagenAntes={urlFor(tipologia.render_ampliacion).url()} 
-                          urlImagenDespues={urlFor(tipologia.render_inicial).url()} 
-                          posicionInicial={50}
-                      /> 
-                      <p className="mt-3 text-[#ffe900] text-center min-w-3xs">deslizar para ver ampliaciones</p>
-                      </div>     
+
+                      <div className="md:hidden whitespace-pre-line pt-10"> 
+                          <PortableText  value={tipologia.ficha_tecnica}/>
+                    </div>    
                   </div>      
     </main>
       );

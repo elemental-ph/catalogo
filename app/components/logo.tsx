@@ -6,7 +6,7 @@ interface LogoProps {
 
 const Logo = ({ fillColor = '#fff' }: LogoProps) => {
   return (
-    <Link className='pointer-events-auto w-300' href="/" >
+    <Link className='pointer-events-auto w-300' href="https://www.elementalchile.cl/es/works" >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1044.56 76.54"

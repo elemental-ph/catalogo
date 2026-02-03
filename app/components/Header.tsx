@@ -10,7 +10,7 @@ const Header: React.FC = () => {
     <header className="fixed z-50 pointer-events-none transition-all w-full">
       <div className='flex  justify-between items-center w-full'>
         <div className='md:h-[130px] flex w-full relative'>
-          <div className=' w-full grid grid-cols-2 bg-[#505050] lg:bg-transparent md:grid-cols-3 justify-items-stretch px-6 md:px-8 '>
+          <div className=' w-full grid grid-cols-2 bg-[#505050] md:grid-cols-3 justify-items-stretch px-6 md:px-8 '>
             <div className="items-center md:hidden flex col-span-2 py-6 justify-center h-full">
             <Logo/>
           </div>

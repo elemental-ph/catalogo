@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { helveticaNeue } from "./ui/fonts";
+import "../globals.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { helveticaNeue } from "../ui/fonts";
 
 
 export const metadata: Metadata = {
-  title: "ELEMENTAL PREFAB",
+  title: "ELEMENTAL - Catálogo de vivienda",
   description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
   keywords: "vivienda, social, DS49, incremental, elemental, alejandro aravena, vivienda de emergencia, arquitectura, entidad patrocinante, casas, industrializada, industrialización"
 };
@@ -30,7 +30,6 @@ export default function RootLayout({
       >
         <Header/>
         {children}
-        <Footer/>
       </body>
     </html>
   );
