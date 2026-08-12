@@ -6,9 +6,6 @@ import { urlFor } from "@/sanity/lib/image";
 import ComparadoresSincronizados from "@/app/components/ComparadoresSincronizados";
 
 
-
-
-
 function getPositionFromHotspot(hotspot: { x: number; y: number } | undefined) {
   if (!hotspot) return 'center';
   return `${hotspot.x * 100}% ${hotspot.y * 100}%`;
