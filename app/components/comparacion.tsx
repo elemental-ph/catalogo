@@ -10,7 +10,7 @@ import {
 
 interface ComparacionProps {
   urlImagenAntes: string;
-  urlImagenDespues: string;
+  urlImagenDespues?: string;
   /** * AHORA ES CRÍTICO: 'posicion' controla el estado desde afuera.
    * Si no se envía, usará 'posicionInicial'.
    */

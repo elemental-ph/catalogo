@@ -8,7 +8,7 @@ export const size = {
 };
 
 export const contentType = 'image/png';
-export const runtime = 'edge'; // Recommended for performance
+export const runtime = 'nodejs'; // Recommended for performance
 
 
 export default async function Image() {

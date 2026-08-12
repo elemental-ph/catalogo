@@ -7,9 +7,9 @@ export const size = {
   width: 1200,
   height: 630,
 };
-export const alt = 'ELEMENTAL PREFAB';
+export const alt = 'Catálogo de viviendas';
 export const contentType = 'image/png';
-export const runtime = 'edge'; // Recommended for performance
+export const runtime = 'nodejs'; // Recommended for performance
 
 type Props = {
       params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
@@ -21,7 +21,7 @@ export default async function Image({ params }: Props) {
 const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     icono,
-    imagen_portada,
+    render_inicial,
     }`;
 
 const tipologia = await client.fetch(query, { sigla });
@@ -41,7 +41,7 @@ const tipologia = await client.fetch(query, { sigla });
         }}
       >
                     <img
-                      src={urlFor(tipologia.imagen_portada)
+                      src={urlFor(tipologia.render_inicial)
                         .width(1200) // Optimal width
                         .height(630) // Optimal height
                         .fit('crop') // Crops to maintain aspect ratio, using Sanity's smart cropping if available
