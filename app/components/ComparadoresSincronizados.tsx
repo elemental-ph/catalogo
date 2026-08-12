@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Comparacion from './comparacion';
+import { PortableText } from "@portabletext/react";
 
 interface TipologiaData {
   planta_ampliacion: string;
@@ -16,7 +17,14 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
 
   return (
     <>
-      {/* SECCIÓN PLANTA (Slider Izquierdo en Desktop) */}
+      <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line flex flex-col justify-between">
+        
+                    <div className="whitespace-pre-line">
+                      <h1 className="bold text-2xl pb-5">{data.name}</h1>
+                          <PortableText  value={data.descripcion}/>
+                    </div>
+                 
+            
       <div className="block xl:col-span-1">
         <div>
           <Comparacion 
@@ -31,9 +39,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           deslizar para ver ampliaciones
         </p>
       </div>
+       </div>
 
-      {/* SECCIÓN RENDER (Slider Derecho en Desktop) */}
-      <div className="xl:col-span-2"> 
+             <div className="xl:col-span-3"> 
         <div className="relative aspect-square md:aspect-auto"> 
           <Comparacion 
             urlImagenAntes={data.render_ampliacion} 

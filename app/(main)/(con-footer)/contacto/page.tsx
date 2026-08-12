@@ -14,9 +14,6 @@ export default function ContactoPage() {
       nombre: formData.get("nombre"),
       apellido: formData.get("apellido"),
       email: formData.get("email"),
-      tipo_cliente: formData.get("tipo_cliente"),
-      cuenta_con_terreno: formData.get("cuenta_con_terreno"), // Name corregido para evitar duplicidad
-      asunto: formData.get("asunto"),
       mensaje: formData.get("mensaje"),
     };
 
@@ -82,49 +79,6 @@ export default function ContactoPage() {
             required
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="correo@ejemplo.com"
-          />
-        </div>
-
-        {/* Tipo de Cliente */}
-        <div className="md:col-span-2">
-          <label className="block mb-2 font-medium">Tipo de Cliente</label>
-          <select 
-            name="tipo_cliente"
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option className="text-black" value="">Seleccionar</option>
-            <option className="text-black" value="comite">Comité de Vivienda</option>
-            <option className="text-black" value="municipio">Municipio</option>
-            <option className="text-black" value="EP">EP (Entidad Patrocinante)</option>
-            <option className="text-black" value="constructora">Constructora/Inmobiliaria</option>
-            <option className="text-black" value="particular">Particular</option>
-            <option className="text-black" value="particular">Otro</option>
-          </select>
-        </div>
-
-        {/* ¿Cuenta con terreno? - Nombre corregido */}
-        <div className="md:col-span-1">
-          <label className="block mb-2 font-medium">¿Cuenta con terreno?</label>
-          <select 
-            name="cuenta_con_terreno" 
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          >
-            <option className="text-black"  value="">Seleccionar</option>
-            <option className="text-black"  value="Sí">Si</option>
-            <option className="text-black"  value="No">No</option>
-          </select>
-        </div>
-
-        {/* Asunto */}
-        <div className="md:col-span-3">
-          <label className="block mb-2 font-medium">Asunto</label>
-          <input
-            name="asunto"
-            type="text"
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
           />
         </div>
 

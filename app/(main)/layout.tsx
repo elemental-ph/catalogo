@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "@/app/components/Header";
 import { helveticaNeue } from "../ui/fonts";
 
 
@@ -25,6 +24,7 @@ export default function RootLayout({
   return (
     <html data-scroll-behavior="smooth" lang="en">
       
+
       <body
         className={`${helveticaNeue.className} ${helveticaNeue.variable} flex flex-col h-svh decoration-3 underline-offset-6 transition duration-300 antialiased`}
       >

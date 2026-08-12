@@ -17,9 +17,6 @@ export async function POST(request: Request) {
       html: `
         <h2>Nuevo mensaje de contacto</h2>
         <p><strong>De:</strong> ${nombre} ${apellido} (${email})</p>
-        <p><strong>Tipo de cliente:</strong> ${tipo_cliente}</p>
-        <p><strong>Cuenta con terreno:</strong> ${cuenta_con_terreno}</p>
-        <p><strong>Asunto:</strong> ${asunto}</p>
         <p><strong>Mensaje:</strong></p>
         <p>${mensaje}</p>
       `,
