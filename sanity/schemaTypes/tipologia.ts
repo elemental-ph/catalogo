@@ -23,16 +23,6 @@ export default {
     {
       name: 'name',
       title: 'Nombre tipología',
-      type: 'string',
-    },
-    {
-      name: 'sort',
-      title: 'Sort',
-      type: 'number',
-    },
-    {
-      name: 'descripcion',
-      title: 'Texto introductorio',
       type: 'array',
       of: [
         {
@@ -41,25 +31,13 @@ export default {
       ]
     },
     {
-      name: 'imagen_portada',
-      title: 'Foto unidad',
-      type: 'image',
-      options: {
-            hotspot: true, // Allows content editors to define a hotspot for image cropping
-          },
-      fields: [
-            defineField({
-              name: 'alt',
-              title: 'Caption',
-              type: 'string',
-              description: 'Alt text for accessibility and SEO',
-              validation: (Rule) => Rule.required(),
-            }),
-          ],
+      name: 'sort',
+      title: 'Sort',
+      type: 'number',
     },
     {
-      name: 'ficha_tecnica',
-      title: 'Ficha Tecnica',
+      name: 'descripcion',
+      title: 'Descripción',
       type: 'array',
       of: [
         {
@@ -77,20 +55,26 @@ export default {
       title: 'planta ampliacion',
       type: 'image',
     },
-    {
-      name: 'recintos',
-      title: 'Recintos',
-      type: 'text',
-    },
         {
       name: 'render_inicial',
-      title: 'Render barrio incial',
+      title: 'Imagen inicial',
       type: 'image',
+            options: {
+            hotspot: true, // Allows content editors to define a hotspot for image cropping
+          },
     },
     {
       name: 'render_ampliacion',
-      title: 'Render barrio con ampliaciones',
+      title: 'Imagen ampliación',
       type: 'image',
+            options: {
+            hotspot: true, // Allows content editors to define a hotspot for image cropping
+          },
+    },
+        {
+      name: 'recintos',
+      title: 'Pie de imagen',
+      type: 'text',
     },
   ],
 };

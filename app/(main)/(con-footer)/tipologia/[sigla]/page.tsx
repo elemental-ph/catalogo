@@ -84,10 +84,10 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                     data={{
                       name: tipologia.name,
                       descripcion: tipologia.descripcion,
-                      planta_ampliacion: urlFor(tipologia.planta_ampliacion).url(),
-                      planta_inicial: urlFor(tipologia.planta_inicial).url(),
-                      render_ampliacion: urlFor(tipologia.render_ampliacion).url(),
-                      render_inicial: urlFor(tipologia.render_inicial).url(),
+                      planta_ampliacion: tipologia.planta_ampliacion ? urlFor(tipologia.planta_ampliacion).url() : undefined,
+                      planta_inicial: tipologia.planta_inicial ? urlFor(tipologia.planta_inicial).url() : undefined,
+                      render_ampliacion: tipologia.render_ampliacion ? urlFor(tipologia.render_ampliacion).url() : undefined,
+                      render_inicial: tipologia.render_inicial ? urlFor(tipologia.render_inicial).url() : undefined,
                     }}
                   />    
     </main>

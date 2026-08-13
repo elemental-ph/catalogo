@@ -9,13 +9,9 @@ import {
 } from 'react-compare-slider';
 
 interface ComparacionProps {
-  urlImagenAntes: string;
+  urlImagenAntes?: string;
   urlImagenDespues?: string;
-  /** * AHORA ES CRÍTICO: 'posicion' controla el estado desde afuera.
-   * Si no se envía, usará 'posicionInicial'.
-   */
   posicion?: number; 
-  /** Callback que informa al padre que el usuario movió este slider */
   onPosicionChange?: (val: number) => void; 
   posicionInicial?: number; 
   fit?: boolean;
@@ -26,72 +22,83 @@ const Comparacion: React.FC<ComparacionProps> = ({
   urlImagenDespues, 
   posicion, 
   onPosicionChange,
-  posicionInicial, 
+  posicionInicial = 50, 
   fit = true 
 }) => {
 
   const containerStyle: React.CSSProperties = {
     width: '100%',
     height: '100%', 
+    position: 'relative',
     overflow: 'hidden'
   };
 
+  const imgAntes = urlImagenAntes?.trim() ? urlImagenAntes : undefined;
+  const imgDespues = urlImagenDespues?.trim() ? urlImagenDespues : undefined;
+  const imagenUnica = imgAntes || imgDespues;
+
+  if (!imagenUnica) return null;
+
+  if (!imgAntes || !imgDespues) {
+    return (
+      <div style={containerStyle}>
+        <ReactCompareSliderImage 
+          src={imagenUnica} 
+          alt="Imagen de la tipología" 
+          style={styleFitContainer as React.CSSProperties}
+        />
+      </div>
+    );
+  }
+
+  // --- HANDLE PERSONALIZADO CON ALINEACIÓN EXACTA Y LÍNEA AMARILLA ---
   const CustomHandle = (
-    <div style={{alignItems: 'center', display: 'flex', height: '100%', position: 'relative'}}>
-      <span style={{width: '20px', color: '#ffe900', padding: '5px'}}>
-      </span> 
     <ReactCompareSliderHandle
-      style={{
-        color: '#ffe900',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+      style={{ color: '#ffe900' }} // Color para la línea vertical
       buttonStyle={{
-        backgroundColor: 'transparent',
-        width:'40px',
-        height:'40px',
-        color: '#ffe900',
-        filter: 'none',
-        boxShadow: '0 0 0px rgba(0,0,0,0.3)',
-        border: '2px solid #ffe900'
+        backgroundColor: '#ffe900', // Fondo del botón circular
+        color: '#000000',            // Flechas en negro
+        border: 'none',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
+        width: '38px',
+        height: '38px',
       }}
     >
-    
+      {/* Texto posicionado absolutamente a la derecha del botón */}
+      <span 
+        style={{ 
+          position: 'absolute', 
+          left: '45px', 
+          color: '#ffe900', 
+          fontWeight: 'bold',
+          fontSize: '14px',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none' // Evita interferir con el arrastre del ratón
+        }}
+      >
+        deslizar
+      </span>
     </ReactCompareSliderHandle>
-    <span style={{width: '20px', transition: 'opacity 0.25s ease-in-out', color: '#ffe900', padding: '5px'}}>
-      deslizar</span> 
-    </div>
   );
 
   return (
     <div style={containerStyle}>
       <ReactCompareSlider
-        /** * CAMBIO 1: Si existe 'posicion' (controlado por el padre), la usamos.
-         * Si no, cae en 'posicionInicial'.
-         */
         position={posicion !== undefined ? posicion : posicionInicial} 
-
-        /** * CAMBIO 2: Escuchamos el movimiento del usuario.
-         * Cuando el usuario arrastra el slider, ejecutamos la función del padre.
-         */
         onPositionChange={onPosicionChange}
-
         handle={CustomHandle}
         style={{ width: '100%', height: '100%' }}
         boundsPadding={0}
-        
         itemOne={
           <ReactCompareSliderImage 
-            src={urlImagenAntes} 
+            src={imgAntes} 
             alt="Imagen Antes" 
             style={styleFitContainer as React.CSSProperties}
           />
         }
-        
         itemTwo={
           <ReactCompareSliderImage 
-            src={urlImagenDespues} 
+            src={imgDespues} 
             alt="Imagen Después" 
             style={styleFitContainer as React.CSSProperties}
           />

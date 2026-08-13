@@ -17,6 +17,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
   // Este es el estado único que ambos sliders compartirán
   const [posicionCompartida, setPosicionCompartida] = useState(0);
 
+  // Evaluamos si hay imágenes iniciales (si no las hay, será un visualizador estático)
+ const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
+
   return (
     <>
       <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line flex flex-col justify-between">
@@ -25,7 +28,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           <h1 className="bold text-2xl pb-5">{data.name}</h1>
           <Comparacion 
             urlImagenAntes={data.render_ampliacion || ''} 
-            urlImagenDespues={data.render_inicial || ''} 
+            urlImagenDespues={data.render_inicial} // Si es undefined, el componente hijo mostrará solo 1 imagen
             posicion={posicionCompartida}
             onPosicionChange={setPosicionCompartida}
             posicionInicial={0}
@@ -41,15 +44,19 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           <div>
             <Comparacion 
               urlImagenAntes={data.planta_ampliacion || ''} 
-              urlImagenDespues={data.planta_inicial || ''} 
+              urlImagenDespues={data.planta_inicial} 
               posicion={posicionCompartida}
               onPosicionChange={setPosicionCompartida}
               posicionInicial={0}
             /> 
           </div>
-          <p className="mt-3 text-left text-[#ffe900] min-w-3xs">
-            deslizar para ver ampliaciones
-          </p>
+          
+          {/* Condicionamos la ayuda visual: solo se muestra si existe la planta inicial */}
+          {hayComparacionPlanta && (
+            <p className="mt-3 text-left text-[#ffe900] min-w-3xs">
+              deslizar para ver ampliaciones
+            </p>
+          )}
         </div>
       </div>
 
@@ -57,7 +64,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         <div className="relative hidden md:block aspect-square md:aspect-auto"> 
           <Comparacion 
             urlImagenAntes={data.render_ampliacion || ''} 
-            urlImagenDespues={data.render_inicial || ''} 
+            urlImagenDespues={data.render_inicial} 
             posicion={posicionCompartida}
             onPosicionChange={setPosicionCompartida}
             posicionInicial={0}
