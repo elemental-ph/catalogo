@@ -5,7 +5,7 @@ import Comparacion from './comparacion';
 import { PortableText } from "@portabletext/react";
 
 interface TipologiaData {
-  name?: string;
+  name?: any;
   descripcion?: any; // PortableText de Sanity es un array de bloques, no string
   planta_ampliacion?: string;
   planta_inicial?: string;
@@ -25,7 +25,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
       <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line flex flex-col justify-between">
 
         <div className="relative md:hidden pb-5 aspect-square md:aspect-auto"> 
-          <h1 className="bold text-2xl pb-5">{data.name}</h1>
+          <h1 className="bold text-2xl pb-5">
+            <PortableText value={data.name}/>
+            </h1>
           <Comparacion 
             urlImagenAntes={data.render_ampliacion || ''} 
             urlImagenDespues={data.render_inicial} // Si es undefined, el componente hijo mostrará solo 1 imagen
