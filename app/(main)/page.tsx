@@ -53,7 +53,9 @@ export default async function IndexPage() {
               />
               
               </div>
-              <h1 className="text-l pt-6 pb-20 text-bold md:opacity-75 transition group-hover:opacity-100">{tipologia.name}</h1>
+              <h1 className="text-l pt-6 pb-20 text-bold md:opacity-75 transition group-hover:opacity-100">
+                <PortableText value={tipologia.name} />
+              </h1>
           </li>
           </Link>
         ))}

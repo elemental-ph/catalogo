@@ -36,7 +36,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
         
         <div className="pb-5 whitespace-pre-line">
-          <h1 className="bold text-2xl pb-5">{data.name}</h1>
+          <h1 className="bold text-2xl pb-5">
+            <PortableText value={data.name}/>
+            </h1>
           <PortableText value={data.descripcion}/>
         </div>
             
