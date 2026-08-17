@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "../globals.css";
 import Header from "@/app/components/Header";
 import { helveticaNeue } from "../ui/fonts";
+import Footer from "@/app/components/Footer";
 
 
 export const metadata: Metadata = {
@@ -13,8 +14,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: '#505050'
 };
-
-
 
 export default function RootLayout({
   children,
@@ -30,6 +29,7 @@ export default function RootLayout({
       >
         <Header/>
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -24,15 +24,15 @@ export default async function IndexPage() {
   const portada = await client.fetch(PORTADA_QUERY);
 
   return (
-    <main className="flex flex-grow items-center w-full p-6 md:p-8">
-      <div className="container pt-20 m-auto max-w-screen">
+    <main className="flex flex-grow items-center w-full p-6 pb-15 md:p-8">
+      <div className="container m-auto max-w-screen">
         
         <div className="m-auto max-w-md">
           <div className="text-center text-l w-full mb-8">
             <h1 className="text-2xl text-center text-white font-bold mb-8">{portada.titulo}</h1>  
-            <div className="underline decoration-1 hover:decoration-4 underline-offset-4 transition-all duration-200">
+{/*             <div className="underline decoration-1 hover:decoration-4 underline-offset-4 transition-all duration-200">
               <PortableText value={portada.resumen} />
-            </div>
+            </div> */}
           </div>
         </div>
 

@@ -15,6 +15,7 @@ interface ComparacionProps {
   onPosicionChange?: (val: number) => void; 
   posicionInicial?: number; 
   fit?: boolean;
+  objectFit?: 'cover' | 'contain'; // Propiedad agregada
 }
 
 const Comparacion: React.FC<ComparacionProps> = ({ 
@@ -23,7 +24,8 @@ const Comparacion: React.FC<ComparacionProps> = ({
   posicion, 
   onPosicionChange,
   posicionInicial = 50, 
-  fit = true 
+  fit = true,
+  objectFit = 'cover' // Valor por defecto
 }) => {
 
   const containerStyle: React.CSSProperties = {
@@ -31,6 +33,11 @@ const Comparacion: React.FC<ComparacionProps> = ({
     height: '100%', 
     position: 'relative',
     overflow: 'hidden'
+  };
+
+  const imageStyle: React.CSSProperties = {
+    ...styleFitContainer,
+    objectFit: objectFit, // Aplica el ajuste según el tipo de imagen
   };
 
   const imgAntes = urlImagenAntes?.trim() ? urlImagenAntes : undefined;
@@ -45,7 +52,7 @@ const Comparacion: React.FC<ComparacionProps> = ({
         <ReactCompareSliderImage 
           src={imagenUnica} 
           alt="Imagen de la tipología" 
-          style={styleFitContainer as React.CSSProperties}
+          style={imageStyle}
         />
       </div>
     );
@@ -93,14 +100,14 @@ const Comparacion: React.FC<ComparacionProps> = ({
           <ReactCompareSliderImage 
             src={imgAntes} 
             alt="Imagen Antes" 
-            style={styleFitContainer as React.CSSProperties}
+            style={imageStyle}
           />
         }
         itemTwo={
           <ReactCompareSliderImage 
             src={imgDespues} 
             alt="Imagen Después" 
-            style={styleFitContainer as React.CSSProperties}
+            style={imageStyle}
           />
         }
       />

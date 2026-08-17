@@ -5,8 +5,8 @@ import Comparacion from './comparacion';
 import { PortableText } from "@portabletext/react";
 
 interface TipologiaData {
-  name?: any;
-  descripcion?: any; // PortableText de Sanity es un array de bloques, no string
+  name?: string;
+  descripcion?: any;
   planta_ampliacion?: string;
   planta_inicial?: string;
   render_ampliacion?: string;
@@ -14,64 +14,74 @@ interface TipologiaData {
 }
 
 export default function ComparadoresSincronizados({ data }: { data: TipologiaData }) {
-  // Este es el estado único que ambos sliders compartirán
   const [posicionCompartida, setPosicionCompartida] = useState(0);
 
-  // Evaluamos si hay imágenes iniciales (si no las hay, será un visualizador estático)
- const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
+  const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
+  const Name = data.name?.replace(/\n+/g, ' ').trim() ?? '';
 
   return (
     <>
-      <div className="prose sm:row-span-2 xl:col-span-1 whitespace-pre-line flex flex-col justify-between">
+      {/* Columna Izquierda: Texto + Planta */}
+      <div className="prose xl:col-span-1 flex flex-col justify-between xl:h-full xl:min-h-0 max-w-none w-full">
 
-        <div className="relative md:hidden pb-5 aspect-square md:aspect-auto"> 
-          <h1 className="bold text-2xl pb-5">
-            <PortableText value={data.name}/>
-            </h1>
-          <Comparacion 
-            urlImagenAntes={data.render_ampliacion || ''} 
-            urlImagenDespues={data.render_inicial} // Si es undefined, el componente hijo mostrará solo 1 imagen
-            posicion={posicionCompartida}
-            onPosicionChange={setPosicionCompartida}
-            posicionInicial={0}
-          /> 
+        {/* --- VISTA MÓVIL (Render + Título) --- */}
+        <div className="block md:hidden mb-6"> 
+          <h1 className="font-bold text-2xl mb-4">
+            {Name}
+          </h1>
+          {/* El aspecto cuadrado solo envuelve a la imagen */}
+          <div className="relative w-full aspect-square overflow-hidden">
+            <Comparacion 
+              urlImagenAntes={data.render_ampliacion || ''} 
+              urlImagenDespues={data.render_inicial} 
+              posicion={posicionCompartida}
+              onPosicionChange={setPosicionCompartida}
+              posicionInicial={0}
+              objectFit="cover"
+            /> 
+          </div>
         </div>
         
-        <div className="pb-5 whitespace-pre-line">
-          <h1 className="bold text-2xl pb-5">
-            <PortableText value={data.name}/>
-            </h1>
+        {/* --- DESCRIPCIÓN --- */}
+        <div className="shrink-0 mb-6 xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
+          {/* Título visible solo en Desktop/Tablet */}
+          <h1 className="font-bold text-2xl mb-4 hidden md:block">
+            {Name}
+          </h1>
           <PortableText value={data.descripcion}/>
         </div>
             
-        <div className="block xl:col-span-1">
-          <div>
+        {/* --- PLANTA DE ARQUITECTURA --- */}
+        <div className="xl:flex-1 xl:min-h-0 flex flex-col justify-end w-full mb-6 xl:mb-0">
+          <div className="relative w-full aspect-square xl:aspect-auto xl:flex-1 xl:min-h-0 overflow-hidden">
             <Comparacion 
               urlImagenAntes={data.planta_ampliacion || ''} 
               urlImagenDespues={data.planta_inicial} 
               posicion={posicionCompartida}
               onPosicionChange={setPosicionCompartida}
               posicionInicial={0}
+              objectFit="contain"
             /> 
           </div>
           
-          {/* Condicionamos la ayuda visual: solo se muestra si existe la planta inicial */}
           {hayComparacionPlanta && (
-            <p className="mt-3 text-left text-[#ffe900] min-w-3xs">
+            <p className="mt-2 text-left text-[#ffe900] text-sm shrink-0">
               deslizar para ver ampliaciones
             </p>
           )}
         </div>
       </div>
 
-      <div className=" xl:col-span-3"> 
-        <div className="relative hidden md:block aspect-square md:aspect-auto"> 
+      {/* --- VISTA DESKTOP (Render Grande) --- */}
+      <div className="hidden md:block xl:col-span-3 xl:h-full xl:min-h-0"> 
+        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0"> 
           <Comparacion 
             urlImagenAntes={data.render_ampliacion || ''} 
             urlImagenDespues={data.render_inicial} 
             posicion={posicionCompartida}
             onPosicionChange={setPosicionCompartida}
             posicionInicial={0}
+            objectFit="cover"
           /> 
         </div>
       </div>

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
   const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     _id,
-    name,
+    "name": pt::text(name),
     sigla,
     icono,
     descripcion, 
@@ -57,7 +57,7 @@ export default async function Tipologia({ params }: Props) {
 const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     _id,
-    name,
+    "name": pt::text(name),
     sigla,
     icono,
     descripcion, 
@@ -78,7 +78,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
       // Now you can safely use sigla
       return (
          
-    <main className="mt-[130px] pb-[100px] px-6 md:px-8 grid sm:grid-cols-2 xl:grid-cols-4 gap-10 md:gap-15">
+    <main className="mt-[130px] px-6 md:px-8 grid sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-10 xl:h-[calc(100vh-150px)] xl:overflow-hidden pb-6">
 
                   <ComparadoresSincronizados 
                     data={{
