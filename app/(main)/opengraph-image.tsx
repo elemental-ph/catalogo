@@ -1,14 +1,14 @@
 import { ImageResponse } from 'next/og';
-import LogoSquare from '../components/logo-square'; // O la ruta a tu componente
+import LogoSquare from '../components/logo-square'; // Ajusta la ruta relativa a tu componente
 
-// Cambiar a la proporción estándar 1.91:1
 export const size = {
   width: 1200,
   height: 630,
 };
 
 export const contentType = 'image/png';
-export const runtime = 'edge';
+export const runtime = 'edge'; // Edge runtime para respuesta ultrarrápida
+export const revalidate = 86400; // Cachea la imagen por 24 horas en CDN
 
 export default async function Image() {
   return new ImageResponse(
@@ -24,7 +24,6 @@ export default async function Image() {
           flexDirection: 'column',
         }}
       >
-        {/* El logo mantendrá sus proporciones en el centro del lienzo 1200x630 */}
         <LogoSquare width={280} height={237} fillColor="#000000" />
       </div>
     ),

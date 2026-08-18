@@ -1,10 +1,26 @@
+import { Metadata } from 'next';
 import { PortableText, type SanityDocument } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
+
+
+export const metadata: Metadata = {
+  title: "Catálogo de viviendas - ELEMENTAL",
+  description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+  openGraph: {
+    title: "Catálogo de viviendas - ELEMENTAL",
+    description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+    siteName: "ELEMENTAL",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Catálogo de viviendas - ELEMENTAL",
+    description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+  },
+};
 
 const TIPOLOGIAS_QUERY = `*[
   _type == "tipologia"

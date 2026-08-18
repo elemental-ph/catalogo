@@ -43,30 +43,30 @@ export async function generateMetadata({ params }: Props) {
   const description = "Diseño por ELEMENTAL fabricado con tecnología industrializada.";
 
   return {
+  title,
+  description,
+  openGraph: {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      siteName: "ELEMENTAL",
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
-        : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: imageUrl ? [imageUrl] : [],
-    },
-  };
+    siteName: "ELEMENTAL",
+    images: [
+      {
+        url: imageUrl,
+        secureUrl: imageUrl, // Obligatorio para peticiones HTTPS en WhatsApp
+        width: 1200,
+        height: 630,
+        type: "image/jpeg",  // Declara el tipo MIME explícitamente
+        alt: title,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [imageUrl],
+  },
+};
 }
 
 export default async function Tipologia({ params }: Props) {
