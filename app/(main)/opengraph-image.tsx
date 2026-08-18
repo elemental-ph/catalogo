@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import LogoSquare from '../components/logo-square'; // Asegúrate de que la ruta sea correcta
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -9,18 +10,16 @@ export default function Image() {
     (
       <div
         style={{
-          background: '#000000',
-          color: '#ffffff',
+          background: 'white',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 60,
-          fontWeight: 'bold',
+          flexDirection: 'column', // Opcional, ayuda a centrar si agregas más elementos
         }}
       >
-        ELEMENTAL PORTADA
+        <LogoSquare width={350} height={296} fillColor="#000000" />
       </div>
     ),
     { ...size }

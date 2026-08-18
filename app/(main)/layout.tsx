@@ -8,23 +8,9 @@ import Footer from "@/app/components/Footer";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://catalogo-viviendas.vercel.app';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL('https://catalogo-viviendas.vercel.app'),
   title: "Catálogo de viviendas - ELEMENTAL",
   description: "Casas diseñadas por ELEMENTAL",
-  keywords: "vivienda, social, DS49, incremental, elemental, alejandro aravena, vivienda de emergencia, arquitectura, entidad patrocinante, casas, industrializada, industrialización",
-  openGraph: {
-    title: "Catálogo de viviendas - ELEMENTAL",
-    description: "Casas diseñadas por ELEMENTAL",
-    url: siteUrl,
-    siteName: "ELEMENTAL",
-    locale: "es_CL",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Catálogo de viviendas - ELEMENTAL",
-    description: "Casas diseñadas por ELEMENTAL",
-  },
 };
 
 export const viewport: Viewport = {

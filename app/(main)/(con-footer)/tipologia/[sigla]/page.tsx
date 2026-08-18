@@ -1,4 +1,5 @@
 import { PortableText } from "@portabletext/react";
+import { Metadata } from 'next';
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
@@ -16,57 +17,75 @@ type Props = {
       params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
     };
 
-// This function generates the text metadata
-export async function generateMetadata({ params }: Props) {
-  const { sigla } = await params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const siglaRaw = resolvedParams.sigla;
+  const sigla = Array.isArray(siglaRaw) ? siglaRaw[0] : siglaRaw;
 
+  // Quitamos el pt::text() para evitar que Sanity corte el texto si hay varios bloques
   const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     sigla,
-    "name": pt::text(name),
+    name, 
     render_inicial
   }`;
 
   const tipologia = await client.fetch(query, { sigla });
 
-  // Generar URL en JPG comprimido directamente desde Sanity CDN (~120 KB)
+  // LÓGICA ROBUSTA PARA EL NOMBRE:
+  // Si 'name' es texto enriquecido (Array), unimos todos los bloques. Si es un String normal, lo usamos tal cual.
+  let fullName = "Nombre no disponible";
+  if (tipologia?.name) {
+    if (typeof tipologia.name === 'string') {
+      fullName = tipologia.name;
+    } else if (Array.isArray(tipologia.name)) {
+      // Extrae y une todo el texto si viene en formato Portable Text de Sanity
+      fullName = tipologia.name
+        .map((block: any) => block.children?.map((child: any) => child.text).join(''))
+        .join(' - '); 
+    }
+  }
+
+  const title = tipologia ? `${tipologia.sigla} - ${fullName}` : 'Tipología';
+  const description = "Diseño por ELEMENTAL fabricado con tecnología industrializada.";
+
+  // Generamos la URL de la imagen en JPG optimizado (1200x630)
   const imageUrl = tipologia?.render_inicial
     ? urlFor(tipologia.render_inicial)
         .width(1200)
         .height(630)
         .fit('crop')
         .format('jpg')
-        .quality(70)
+        .quality(75)
         .url()
     : undefined;
 
-  const title = `${tipologia.sigla} - ${tipologia.name}`;
-  const description = "Diseño por ELEMENTAL fabricado con tecnología industrializada.";
-
   return {
-  title,
-  description,
-  openGraph: {
     title,
     description,
-    siteName: "ELEMENTAL",
-    images: [
-      {
-        url: imageUrl,
-        secureUrl: imageUrl, // Obligatorio para peticiones HTTPS en WhatsApp
-        width: 1200,
-        height: 630,
-        type: "image/jpeg",  // Declara el tipo MIME explícitamente
-        alt: title,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: [imageUrl],
-  },
-};
+    openGraph: {
+      title,
+      description,
+      siteName: "ELEMENTAL",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              secureUrl: imageUrl,
+              width: 1200,
+              height: 630,
+              type: "image/jpeg",
+              alt: title,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+  };
 }
 
 export default async function Tipologia({ params }: Props) {
