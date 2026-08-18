@@ -19,36 +19,52 @@ type Props = {
 // This function generates the text metadata
 export async function generateMetadata({ params }: Props) {
   const { sigla } = await params;
-const query = `*[_type == "tipologia" && sigla == $sigla][0]{
-    _id,
-    "name": pt::text(name),
+
+  const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     sigla,
-    icono,
-    descripcion, 
-    imagen_portada,
-    planta_inicial,
-    planta_ampliacion,
-    recintos,
-    render_inicial,
-    render_ampliacion,
-    }`;
+    "name": pt::text(name),
+    render_inicial
+  }`;
 
   const tipologia = await client.fetch(query, { sigla });
-  const postTitle = `${tipologia.sigla} - ${tipologia.name}`;
-  const postDescription = `Diseño por ELEMENTAL fabricado con tecnología industrializada`;
-  
+
+  // Generar URL en JPG comprimido directamente desde Sanity CDN (~120 KB)
+  const imageUrl = tipologia?.render_inicial
+    ? urlFor(tipologia.render_inicial)
+        .width(1200)
+        .height(630)
+        .fit('crop')
+        .format('jpg')
+        .quality(70)
+        .url()
+    : undefined;
+
+  const title = `${tipologia.sigla} - ${tipologia.name}`;
+  const description = "Diseño por ELEMENTAL fabricado con tecnología industrializada.";
+
   return {
-    title: postTitle,
-    description: postDescription,
+    title,
+    description,
     openGraph: {
-      title: postTitle,
-      description: postDescription,
-      // The opengraph-image.tsx in this directory handles the 'images' property automatically
+      title,
+      description,
+      siteName: "ELEMENTAL",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [],
     },
     twitter: {
-      card: 'summary_large_image', // specifies Twitter card type
-      title: postTitle,
-      description: postDescription,
+      card: "summary_large_image",
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
     },
   };
 }
