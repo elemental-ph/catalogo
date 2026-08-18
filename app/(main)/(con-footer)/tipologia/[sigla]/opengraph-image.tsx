@@ -26,11 +26,11 @@ export default async function Image({ params }: Props) {
     if (tipologia?.render_inicial) {
       // 2. Compresión agresiva para asegurar un peso < 200 KB
       imageUrl = urlFor(tipologia.render_inicial)
-        .width(1200)
-        .height(630)
+        .width(800)
+        .height(420)
         .fit('crop')
         .format('jpg') // Forzar formato JPG
-        .quality(65)   // Calidad balanceada entre nitidez y peso reducido
+        .quality(50)   // Calidad balanceada entre nitidez y peso reducido
         .url();
     }
   } catch (error) {
