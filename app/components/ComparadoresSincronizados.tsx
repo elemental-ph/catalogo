@@ -52,8 +52,8 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
             
         {/* --- PLANTA DE ARQUITECTURA --- */}
-        <div className="xl:flex-1 xl:min-h-0 flex flex-col justify-end w-full mb-6 xl:mb-0">
-          <div className="relative w-full aspect-square xl:aspect-auto xl:flex-1 xl:min-h-0 overflow-hidden">
+        <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
+          <div className="relative w-full  overflow-hidden">
             <Comparacion 
               urlImagenAntes={data.planta_ampliacion || ''} 
               urlImagenDespues={data.planta_inicial} 

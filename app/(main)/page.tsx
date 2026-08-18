@@ -24,7 +24,7 @@ export default async function IndexPage() {
   const portada = await client.fetch(PORTADA_QUERY);
 
   return (
-    <main className="flex flex-grow items-center w-full p-6 pb-15 md:p-8">
+    <main className="flex flex-grow items-center w-full p-6 pb-25 pt-20 md:p-8">
       <div className="container m-auto max-w-screen">
         
         <div className="m-auto max-w-md">
