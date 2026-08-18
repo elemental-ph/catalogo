@@ -41,12 +41,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       // Extrae y une todo el texto si viene en formato Portable Text de Sanity
       fullName = tipologia.name
         .map((block: any) => block.children?.map((child: any) => child.text).join(''))
-        .join(' - '); 
+        .join(' '); 
     }
   }
 
-  const title = tipologia ? `${tipologia.sigla} - ${fullName}` : 'Tipología';
-  const description = "Diseño por ELEMENTAL fabricado con tecnología industrializada.";
+  const title = tipologia ? `${fullName}` : 'Tipología';
+  const description = "Catálogo de viviendas diseñadas por ELEMENTAL";
 
   // Generamos la URL de la imagen en JPG optimizado (1200x630)
   const imageUrl = tipologia?.render_inicial

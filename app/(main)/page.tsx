@@ -8,17 +8,17 @@ import { urlFor } from "@/sanity/lib/image";
 
 export const metadata: Metadata = {
   title: "Catálogo de viviendas - ELEMENTAL",
-  description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+  description: "Catálogo de viviendas diseñadas por ELEMENTAL ",
   openGraph: {
     title: "Catálogo de viviendas - ELEMENTAL",
-    description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+    description: "Catálogo de viviendas diseñadas por ELEMENTAL ",
     siteName: "ELEMENTAL",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Catálogo de viviendas - ELEMENTAL",
-    description: "Casas diseñadas por ELEMENTAL fabricadas con tecnología industrializada.",
+    description: "Catálogo de viviendas diseñadas por ELEMENTAL ",
   },
 };
 

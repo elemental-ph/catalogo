@@ -4,13 +4,9 @@ import Header from "@/app/components/Header";
 import { helveticaNeue } from "../ui/fonts";
 import Footer from "@/app/components/Footer";
 
-// Reemplaza 'https://tu-dominio.com' por tu dominio de producción o URL de Vercel/ngrok
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://catalogo-viviendas.vercel.app';
-
 export const metadata: Metadata = {
-  metadataBase: new URL('https://catalogo-viviendas.vercel.app'),
   title: "Catálogo de viviendas - ELEMENTAL",
-  description: "Casas diseñadas por ELEMENTAL",
+  description: "Catálogo de viviendas diseñadas por ELEMENTAL ",
 };
 
 export const viewport: Viewport = {
