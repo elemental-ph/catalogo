@@ -1,49 +1,35 @@
 import { ImageResponse } from 'next/og';
-import LogoSquare from '../components/logo-square';
+import LogoSquare from '../components/logo-square'; // O la ruta a tu componente
 
-// Image metadata
+// Cambiar a la proporción estándar 1.91:1
 export const size = {
-  width: 630,
+  width: 1200,
   height: 630,
 };
 
 export const contentType = 'image/png';
-export const runtime = 'nodejs'; // Recommended for performance
-
+export const runtime = 'edge';
 
 export default async function Image() {
-  // You can fetch dynamic data here
-  // const data = await fetch(...);
-
   return new ImageResponse(
     (
       <div
         style={{
           background: 'white',
-          position: "relative",
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          padding: '20px',
         }}
       >
-                    <LogoSquare/>
+        {/* El logo mantendrá sus proporciones en el centro del lienzo 1200x630 */}
+        <LogoSquare width={280} height={237} fillColor="#000000" />
       </div>
     ),
     {
       ...size,
-      // Load fonts efficiently
-      // fonts: [
-      //   {
-      //     name: 'Inter',
-      //     data: fontData, // ArrayBuffer of the font file
-      //     style: 'normal',
-      //     weight: 400,
-      //   },
-      // ],
     }
   );
 }

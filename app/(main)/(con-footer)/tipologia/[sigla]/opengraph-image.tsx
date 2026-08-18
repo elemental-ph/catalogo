@@ -2,67 +2,86 @@ import { ImageResponse } from 'next/og';
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
-// Image metadata
-export const size = {
-  width: 1200,
-  height: 630,
-};
-export const alt = 'Catálogo de viviendas';
-export const contentType = 'image/png';
-
-export const runtime = 'edge'; // Recommended for performance
+export const size = { width: 1200, height: 630 };
+// 1. Cambiar a JPEG (pesa hasta un 80% menos que PNG)
+export const contentType = 'image/jpeg'; 
+export const runtime = 'edge';
 export const revalidate = 3600;
 
 type Props = {
-      params: Promise<{ sigla: string | string[] }>; // Define params as a Promise
-    };
+  params: Promise<{ sigla: string | string[] }>;
+};
 
 export default async function Image({ params }: Props) {
-  // You can fetch dynamic data here
-  // const data = await fetch(...);
-const { sigla } = await params;
-const query = `*[_type == "tipologia" && sigla == $sigla][0]{
-    icono,
-    render_inicial,
-    }`;
+  const resolvedParams = await params;
+  const siglaRaw = resolvedParams.sigla;
+  const sigla = Array.isArray(siglaRaw) ? siglaRaw[0] : siglaRaw;
 
-const tipologia = await client.fetch(query, { sigla });
+  let imageUrl: string | null = null;
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          background: 'white',
-          position: "relative",
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-                    <img
-                      src={urlFor(tipologia.render_inicial)
-                        .width(1200) // Optimal width
-                        .height(630) // Optimal height
-                        .fit('crop') // Crops to maintain aspect ratio, using Sanity's smart cropping if available
-                        .quality(75)
-                        .url()}
-                      />
-      </div>
-    ),
-    {
-      ...size,
-      // Load fonts efficiently
-      // fonts: [
-      //   {
-      //     name: 'Inter',
-      //     data: fontData, // ArrayBuffer of the font file
-      //     style: 'normal',
-      //     weight: 400,
-      //   },
-      // ],
-    }
-  );
+  try {
+    const query = `*[_type == "tipologia" && sigla == $sigla][0]{ render_inicial }`;
+    const tipologia = await client.fetch(query, { sigla });
+
+    if (tipologia?.render_inicial) {
+      // 2. Compresión agresiva para asegurar un peso < 200 KB
+      imageUrl = urlFor(tipologia.render_inicial)
+        .width(1200)
+        .height(630)
+        .fit('crop')
+        .format('jpg') // Forzar formato JPG
+        .quality(65)   // Calidad balanceada entre nitidez y peso reducido
+        .url();
+    }
+  } catch (error) {
+    console.error("Error obteniendo imagen de Sanity para OG:", error);
+  }
+
+  // Fallback si falla la consulta
+  if (!imageUrl) {
+    return new ImageResponse(
+      (
+        <div
+          style={{
+            background: '#000000',
+            color: '#ffe900',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 48,
+            fontWeight: 'bold',
+          }}
+        >
+          {sigla ? `TIPOLOGÍA ${sigla}` : 'CATÁLOGO DE VIVIENDAS'}
+        </div>
+      ),
+      { ...size }
+    );
+  }
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          background: 'black',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+        }}
+      >
+        <img
+          src={imageUrl}
+          alt="Vista previa de tipología"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        />
+      </div>
+    ),
+    { ...size }
+  );
 }
