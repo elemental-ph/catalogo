@@ -76,6 +76,28 @@ export default {
       title: 'Pie de imagen',
       type: 'text',
     },
+    {
+      name: 'galeria',
+      title: 'Galería de imágenes',
+      type: 'array',
+      description: 'Sube un grupo de imágenes adicionales para esta tipología.',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true, // Buena práctica: permite al editor ajustar el recorte en el frontend
+          },
+          fields: [
+            {
+              name: 'creditos',
+              title: 'Créditos de la imagen',
+              type: 'string',
+              description: 'Opcional. Ingresa el nombre del fotógrafo o la fuente.',
+            },
+          ],
+        },
+      ],
+    },
   ],
 
   orderings: [
