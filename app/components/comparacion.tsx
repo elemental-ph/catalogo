@@ -15,7 +15,9 @@ interface ComparacionProps {
   onPosicionChange?: (val: number) => void; 
   posicionInicial?: number; 
   fit?: boolean;
-  objectFit?: 'cover' | 'contain'; // Propiedad agregada
+  objectFit?: 'cover' | 'contain';
+  objectPositionAntes?: string;  
+  objectPositionDespues?: string;
 }
 
 const Comparacion: React.FC<ComparacionProps> = ({ 
@@ -25,7 +27,9 @@ const Comparacion: React.FC<ComparacionProps> = ({
   onPosicionChange,
   posicionInicial = 50, 
   fit = true,
-  objectFit = 'cover' // Valor por defecto
+  objectFit = 'cover',
+  objectPositionAntes = 'center',
+  objectPositionDespues = 'center'
 }) => {
 
   const containerStyle: React.CSSProperties = {
@@ -35,14 +39,23 @@ const Comparacion: React.FC<ComparacionProps> = ({
     overflow: 'hidden'
   };
 
-  const imageStyle: React.CSSProperties = {
+  // --- ESTILOS INDIVIDUALES PARA APLICAR EL HOTSPOT ---
+  const styleAntes: React.CSSProperties = {
     ...styleFitContainer,
-    objectFit: objectFit, // Aplica el ajuste según el tipo de imagen
+    objectFit: objectFit,
+    objectPosition: objectPositionAntes,
+  };
+
+  const styleDespues: React.CSSProperties = {
+    ...styleFitContainer,
+    objectFit: objectFit,
+    objectPosition: objectPositionDespues,
   };
 
   const imgAntes = urlImagenAntes?.trim() ? urlImagenAntes : undefined;
   const imgDespues = urlImagenDespues?.trim() ? urlImagenDespues : undefined;
   const imagenUnica = imgAntes || imgDespues;
+  const styleUnica = imgAntes ? styleAntes : styleDespues;
 
   if (!imagenUnica) return null;
 
@@ -52,7 +65,7 @@ const Comparacion: React.FC<ComparacionProps> = ({
         <ReactCompareSliderImage 
           src={imagenUnica} 
           alt="Imagen de la tipología" 
-          style={imageStyle}
+          style={styleUnica}
         />
       </div>
     );
@@ -61,17 +74,16 @@ const Comparacion: React.FC<ComparacionProps> = ({
   // --- HANDLE PERSONALIZADO CON ALINEACIÓN EXACTA Y LÍNEA AMARILLA ---
   const CustomHandle = (
     <ReactCompareSliderHandle
-      style={{ color: '#ffe900' }} // Color para la línea vertical
+      style={{ color: '#ffe900' }}
       buttonStyle={{
-        backgroundColor: '#ffe900', // Fondo del botón circular
-        color: '#000000',            // Flechas en negro
+        backgroundColor: '#ffe900',
+        color: '#000000',
         border: 'none',
         boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
         width: '38px',
         height: '38px',
       }}
     >
-      {/* Texto posicionado absolutamente a la derecha del botón */}
       <span 
         style={{ 
           position: 'absolute', 
@@ -80,7 +92,7 @@ const Comparacion: React.FC<ComparacionProps> = ({
           fontWeight: 'bold',
           fontSize: '14px',
           whiteSpace: 'nowrap',
-          pointerEvents: 'none' // Evita interferir con el arrastre del ratón
+          pointerEvents: 'none'
         }}
       >
         deslizar
@@ -100,14 +112,14 @@ const Comparacion: React.FC<ComparacionProps> = ({
           <ReactCompareSliderImage 
             src={imgAntes} 
             alt="Imagen Antes" 
-            style={imageStyle}
+            style={styleAntes}
           />
         }
         itemTwo={
           <ReactCompareSliderImage 
             src={imgDespues} 
             alt="Imagen Después" 
-            style={imageStyle}
+            style={styleDespues}
           />
         }
       />

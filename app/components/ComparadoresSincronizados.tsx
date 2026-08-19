@@ -11,6 +11,8 @@ interface TipologiaData {
   planta_inicial?: string;
   render_ampliacion?: string;
   render_inicial?: string;
+  render_inicial_position?: string; 
+  render_ampliacion_position?: string;
 }
 
 export default function ComparadoresSincronizados({ data }: { data: TipologiaData }) {
@@ -21,7 +23,6 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
 
   return (
     <>
-      {/* Columna Izquierda: Texto + Planta */}
       <div className="prose xl:col-span-1 flex flex-col justify-between xl:h-full xl:min-h-0 max-w-none w-full">
 
         {/* --- VISTA MÓVIL (Render + Título) --- */}
@@ -29,7 +30,6 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           <h1 className="font-bold text-2xl mb-4">
             {Name}
           </h1>
-          {/* El aspecto cuadrado solo envuelve a la imagen */}
           <div className="relative w-full aspect-square overflow-hidden">
             <Comparacion 
               urlImagenAntes={data.render_ampliacion || ''} 
@@ -38,13 +38,15 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
               onPosicionChange={setPosicionCompartida}
               posicionInicial={0}
               objectFit="cover"
+              // PASAMOS LAS POSICIONES AQUÍ:
+              objectPositionAntes={data.render_ampliacion_position}
+              objectPositionDespues={data.render_inicial_position}
             /> 
           </div>
         </div>
         
         {/* --- DESCRIPCIÓN --- */}
         <div className="shrink-0 mb-6 xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
-          {/* Título visible solo en Desktop/Tablet */}
           <h1 className="font-bold text-2xl mb-4 hidden md:block">
             {Name}
           </h1>
@@ -53,7 +55,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
             
         {/* --- PLANTA DE ARQUITECTURA --- */}
         <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
-          <div className="relative w-full  overflow-hidden">
+          <div className="relative w-full overflow-hidden">
             <Comparacion 
               urlImagenAntes={data.planta_ampliacion || ''} 
               urlImagenDespues={data.planta_inicial} 
@@ -82,6 +84,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
             onPosicionChange={setPosicionCompartida}
             posicionInicial={0}
             objectFit="cover"
+            // LAS PASAMOS TAMBIÉN EN DESKTOP POR SI SE RECORTA:
+            objectPositionAntes={data.render_ampliacion_position}
+            objectPositionDespues={data.render_inicial_position}
           /> 
         </div>
       </div>

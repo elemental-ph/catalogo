@@ -116,15 +116,22 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
     <main className="mt-[130px] px-6 pb-20 md:pb-6 md:px-8 grid sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-10 xl:h-[calc(100vh-150px)] xl:overflow-hidden pb-6">
 
                   <ComparadoresSincronizados 
-                    data={{
-                      name: tipologia.name,
-                      descripcion: tipologia.descripcion,
-                      planta_ampliacion: tipologia.planta_ampliacion ? urlFor(tipologia.planta_ampliacion).url() : undefined,
-                      planta_inicial: tipologia.planta_inicial ? urlFor(tipologia.planta_inicial).url() : undefined,
-                      render_ampliacion: tipologia.render_ampliacion ? urlFor(tipologia.render_ampliacion).url() : undefined,
-                      render_inicial: tipologia.render_inicial ? urlFor(tipologia.render_inicial).url() : undefined,
-                    }}
-                  />    
+                  data={{
+                    name: tipologia.name,
+                    descripcion: tipologia.descripcion,
+                    planta_ampliacion: tipologia.planta_ampliacion ? urlFor(tipologia.planta_ampliacion).url() : undefined,
+                    planta_inicial: tipologia.planta_inicial ? urlFor(tipologia.planta_inicial).url() : undefined,
+                    
+                    // 1. Dejamos las imágenes sin forzar tamaño para no arruinar el Desktop
+                    render_ampliacion: tipologia.render_ampliacion ? urlFor(tipologia.render_ampliacion).url() : undefined,
+                    render_inicial: tipologia.render_inicial ? urlFor(tipologia.render_inicial).url() : undefined,
+                    
+                    // 2. PASAMOS EL HOTSPOT (¡Esto es lo que faltaba en tu archivo!)
+                    // Esto obligará al celular a mover la imagen cuadrada hacia el punto azul de Sanity
+                    render_inicial_position: getPositionFromHotspot(tipologia.render_inicial?.hotspot),
+                    render_ampliacion_position: getPositionFromHotspot(tipologia.render_ampliacion?.hotspot),
+                  }}
+                />
     </main>
       );
     }
