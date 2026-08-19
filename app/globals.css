@@ -26,3 +26,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+.prose p:empty::before {
+  content: "\00a0"; /* Inyecta un espacio de no separación HTML (&nbsp;) en párrafos vacíos */
+}

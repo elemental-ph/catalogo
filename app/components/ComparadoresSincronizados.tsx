@@ -20,7 +20,7 @@ interface TipologiaData {
 }
 
 export default function ComparadoresSincronizados({ data }: { data: TipologiaData }) {
-  const [posicionCompartida, setPosicionCompartida] = useState(0);
+  const [posicionCompartida, setPosicionCompartida] = useState(50);
 
   const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
   const Name = data.name?.replace(/\n+/g, ' ').trim() ?? '';
@@ -70,7 +70,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         {/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
         <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
           {hayComparacionPlanta && (
-            <p className="mt-2 text-left text-[#ffe900] text-sm pb-5 shrink-0">
+            <p className="mt-2 text-center text-[#ffe900] text-sm pb-5 shrink-0">
               deslizar para ver ampliaciones
             </p>
           )} 

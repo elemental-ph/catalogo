@@ -18,11 +18,12 @@ export default function GaleriaTipologia({
   const INTERVALO_SEGUNDOS = 4;
   const hasGaleria = Array.isArray(galeria) && galeria.length > 0;
 
+  // Ajuste de nitidez: Elevamos el ancho base a 2000px y la calidad al 85%
   const getOptimizedUrl = (source: any) => {
     if (!source) return '';
     return urlFor(source)
-      .width(1200)
-      .quality(80)
+      .width(2000)
+      .quality(85)
       .auto('format')
       .url();
   };
@@ -31,7 +32,7 @@ export default function GaleriaTipologia({
     setCurrentIndex(0);
   }, [galeria, renderInicial]);
 
-  // Precarga inteligente de la siguiente imagen
+  // Precarga de la siguiente imagen
   useEffect(() => {
     if (!hasGaleria || galeria.length <= 1) return;
 
@@ -77,7 +78,7 @@ export default function GaleriaTipologia({
                   src={imgUrl}
                   alt={`Imagen de galería ${idx + 1}`}
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 75vw"
                   style={{ objectFit: 'cover', objectPosition: 'center' }}
                   priority={idx === 0}
                   fetchPriority={idx === 0 ? 'high' : 'auto'}
@@ -87,9 +88,9 @@ export default function GaleriaTipologia({
           );
         })}
 
-        {/* Créditos en la esquina inferior derecha (Elevados y desplazados 10px a la derecha) */}
+        {/* Créditos en la esquina inferior derecha */}
         {creditosActuales && (
-          <div className="absolute bottom-3 right-3 z-20 pointer-events-none select-none flex items-end justify-end translate-x-[10px]">
+          <div className="absolute bottom-10 right-2 z-20 pointer-events-none select-none flex items-end justify-end translate-x-[10px]">
             <span className="text-[10px] md:text-xs text-white/80 uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
               © {creditosActuales}
             </span>
@@ -109,7 +110,7 @@ export default function GaleriaTipologia({
             src={renderUrl}
             alt="Render Inicial"
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 75vw"
             style={{ objectFit: 'cover', objectPosition: 'center' }}
             priority
             fetchPriority="high"
