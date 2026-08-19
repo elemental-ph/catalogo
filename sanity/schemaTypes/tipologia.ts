@@ -55,26 +55,69 @@ export default {
       title: 'planta ampliacion',
       type: 'image',
     },
-        {
+    {
       name: 'render_inicial',
       title: 'Imagen inicial',
       type: 'image',
-            options: {
-            hotspot: true, // Allows content editors to define a hotspot for image cropping
-          },
+      options: {
+        hotspot: true, // Allows content editors to define a hotspot for image cropping
+      },
     },
     {
       name: 'render_ampliacion',
       title: 'Imagen ampliación',
       type: 'image',
-            options: {
-            hotspot: true, // Allows content editors to define a hotspot for image cropping
-          },
+      options: {
+        hotspot: true, // Allows content editors to define a hotspot for image cropping
+      },
     },
-        {
+    {
       name: 'recintos',
       title: 'Pie de imagen',
       type: 'text',
     },
   ],
+
+  orderings: [
+    {
+      title: 'Por Orden (Sort)',
+      name: 'sortAsc',
+      by: [
+        { field: 'sort', direction: 'asc' }
+      ]
+    }
+  ],
+
+  // --- CONFIGURACIÓN DE PREVISUALIZACIÓN EN SANITY STUDIO ---
+  preview: {
+    select: {
+      sigla: 'sigla',
+      name: 'name',
+      media: 'render_inicial',
+    },
+    prepare(selection: { sigla?: string; name?: any[]; media?: any }) {
+      const { sigla, name, media } = selection;
+
+      // Extrae y une el texto de todos los bloques del PortableText 'name'
+      let fullName = '';
+      if (Array.isArray(name)) {
+        fullName = name
+          .map((block) =>
+            block.children
+              ? block.children.map((child: any) => child.text).join('')
+              : ''
+          )
+          .filter(Boolean)
+          .join(' ');
+      }
+
+      // Si existe sigla la antepone (ej: "V1 - Edificio Departamentos"), sino muestra solo el nombre
+      const titleText = [sigla, fullName].filter(Boolean).join(' - ');
+
+      return {
+        title: titleText || 'Sin nombre',
+        media: media,
+      };
+    },
+  },
 };
