@@ -41,14 +41,16 @@ export default function ContactoPage() {
 
   return (
     <div className="mt-[110px] pb-[100px] max-w-2xl md:mx-auto p-6 md:p-8">
+
       <form 
         id="contact-form"
         action={handleSubmit} 
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
+       <p className="text-center border-b-2 md:col-span-3 mt-10">Contactenos para agendar una reunión</p>
         {/* Nombre */}
         <div className="md:col-span-1">
-          <label className="block mb-2 font-medium">Nombre</label>
+          <label className="block mb-2 font-medium">Nombre*</label>
           <input
             name="nombre"
             type="text"
@@ -60,7 +62,7 @@ export default function ContactoPage() {
 
         {/* Apellido */}
         <div className="md:col-span-1">
-          <label className="block mb-2 font-medium">Apellido</label>
+          <label className="block mb-2 font-medium">Apellido*</label>
           <input
             name="apellido"
             type="text"
@@ -72,7 +74,7 @@ export default function ContactoPage() {
 
          {/* Email */}
         <div className="md:col-span-1">
-          <label className="block mb-2 font-medium">Correo Electrónico</label>
+          <label className="block mb-2 font-medium">Correo Electrónico*</label>
           <input
             name="email"
             type="email"
@@ -85,11 +87,10 @@ export default function ContactoPage() {
         {/* Mensaje */}
         <div className="md:col-span-3">
           <label className="block mb-2 font-medium">
-            Mensaje ({chars}/500)
+            Mensaje ({chars}/500)*
           </label>
           <textarea
             name="mensaje"
-            required
             maxLength={500}
             onChange={(e) => setChars(e.target.value.length)}
             rows={5}
@@ -108,7 +109,7 @@ export default function ContactoPage() {
         </div>
 
         {status === "success" && (
-          <p className="md:col-span-3 text-green-600 font-medium text-center">¡Mensaje enviado con éxito!</p>
+          <p className="md:col-span-3 text-green-600 font-medium text-center">Mensaje enviado con éxito, nos pondremos en contacto pronto.</p>
         )}
         {status === "error" && (
           <p className="md:col-span-3 text-red-600 font-medium text-center">Hubo un error. Intenta de nuevo.</p>

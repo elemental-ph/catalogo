@@ -53,8 +53,15 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           <PortableText value={data.descripcion}/>
         </div>
             
+        
+
         {/* --- PLANTA DE ARQUITECTURA --- */}
         <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
+          {hayComparacionPlanta && (
+            <p className="mt-2 text-left text-[#ffe900] text-sm pb-5 shrink-0">
+              deslizar para ver ampliaciones
+            </p>
+          )} 
           <div className="relative w-full overflow-hidden">
             <Comparacion 
               urlImagenAntes={data.planta_ampliacion || ''} 
@@ -63,14 +70,12 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
               onPosicionChange={setPosicionCompartida}
               posicionInicial={0}
               objectFit="contain"
+              objectPositionAntes="left center"
+              objectPositionDespues="left center"
             /> 
           </div>
           
-          {hayComparacionPlanta && (
-            <p className="mt-2 text-left text-[#ffe900] text-sm shrink-0">
-              deslizar para ver ampliaciones
-            </p>
-          )}
+          
         </div>
       </div>
 

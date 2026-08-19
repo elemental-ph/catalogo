@@ -44,8 +44,8 @@ export default async function IndexPage() {
       <div className="container m-auto max-w-screen">
         
         <div className="m-auto max-w-md">
-          <div className="text-center text-l w-full mb-8">
-            <h1 className="text-2xl text-center text-white font-bold mb-8">{portada.titulo}</h1>  
+          <div className="text-center text-l w-full md:pb-20">
+            <h1 className="text-2xl text-center text-white font-bold">{portada.titulo}</h1>  
 {/*             <div className="underline decoration-1 hover:decoration-4 underline-offset-4 transition-all duration-200">
               <PortableText value={portada.resumen} />
             </div> */}
