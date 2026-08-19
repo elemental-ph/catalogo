@@ -4,6 +4,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from 'next/image';
 import { urlFor } from "@/sanity/lib/image";
+import TipologiaCard from '@/app/components/TipologiaCard';
 
 
 export const metadata: Metadata = {
@@ -24,7 +25,20 @@ export const metadata: Metadata = {
 
 const TIPOLOGIAS_QUERY = `*[
   _type == "tipologia"
-]|order(sort asc)[0...12]{_id, sort, name, sigla, descripcion, icono, imagen_portada}`;
+]|order(sort asc)[0...12]{
+  _id, 
+  sort, 
+  name, 
+  sigla, 
+  descripcion, 
+  icono, 
+  imagen_portada,
+  render_inicial,
+  galeria[0]{
+    ...,
+    asset->
+  }
+}`;
 
 const PORTADA_QUERY = `*[
   _type == "portada"
@@ -51,34 +65,7 @@ export default async function IndexPage() {
 
         <ul className="flex flex-col xl:flex-row items-start justify-center gap-6 m-auto list-none">
           {tipologias.map((tipologia) => (
-            <Link 
-              href={`/tipologia/${tipologia.sigla}`} 
-              className="group flex flex-col flex-1 w-full hover:cursor-pointer" 
-              key={tipologia._id}
-            >
-              <li className="flex flex-col items-center w-full">
-                
-                {/* Contenedor de imagen con altura fija alineado abajo */}
-                <div className="w-full h-[200px] xl:h-[240px] flex items-end justify-center bg-transparent invert md:opacity-75 transition group-hover:opacity-100">
-                  <Image 
-                    src={urlFor(tipologia.icono).url()}
-                    alt={tipologia.icono?.alt || 'Sanity Image'}
-                    width={450}
-                    height={450} 
-                    className="max-h-full w-auto object-contain"
-                    priority
-                  />
-                </div>
-                
-                {/* Texto alineado en la parte superior del contenedor */}
-                <div className="w-full pt-6 text-center">
-                  <h1 className="text-l font-bold md:opacity-75 transition group-hover:opacity-100 [&>p]:text-center [&>p]:m-0">
-                    <PortableText value={tipologia.name} />
-                  </h1>
-                </div>
-
-              </li>
-            </Link>
+            <TipologiaCard key={tipologia._id} tipologia={tipologia} />
           ))}
         </ul>
             <div className="mt-16 md:mt-24 w-full flex justify-center items-center">

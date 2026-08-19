@@ -5,25 +5,46 @@ import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
 
 interface GaleriaProps {
-  galeria: any[];
-  renderInicial: any;
+  galeria?: any[];
+  renderInicial?: any;
   renderAmpliacion?: any;
 }
 
 export default function GaleriaTipologia({ 
-  galeria, 
-  renderInicial, 
-  renderAmpliacion 
+  galeria = [], 
+  renderInicial 
 }: GaleriaProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const INTERVALO_SEGUNDOS = 4;
+  const hasGaleria = Array.isArray(galeria) && galeria.length > 0;
 
-  // --- CONFIGURACIÓN DEL DESARROLLADOR ---
-  // Cambia este valor para ajustar la velocidad de la transición en segundos
-  const INTERVALO_SEGUNDOS = 4; 
-  // ----------------------------------------
+  const getOptimizedUrl = (source: any) => {
+    if (!source) return '';
+    return urlFor(source)
+      .width(1200)
+      .quality(80)
+      .auto('format')
+      .url();
+  };
 
-  const hasGaleria = galeria && galeria.length > 0;
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [galeria, renderInicial]);
 
+  // Precarga inteligente de la siguiente imagen
+  useEffect(() => {
+    if (!hasGaleria || galeria.length <= 1) return;
+
+    const nextIndex = (currentIndex + 1) % galeria.length;
+    const nextImg = galeria[nextIndex];
+
+    if (nextImg?.asset) {
+      const imgPreloader = new window.Image();
+      imgPreloader.src = getOptimizedUrl(nextImg);
+    }
+  }, [currentIndex, galeria, hasGaleria]);
+
+  // Carrusel automático
   useEffect(() => {
     if (!hasGaleria || galeria.length <= 1) return;
 
@@ -32,50 +53,68 @@ export default function GaleriaTipologia({
     }, INTERVALO_SEGUNDOS * 1000);
 
     return () => clearInterval(intervalId);
-  }, [hasGaleria, galeria]);
+  }, [hasGaleria, galeria.length]);
 
-  // ESCENARIO 1: Tiene Galería
+  const creditosActuales = hasGaleria ? galeria[currentIndex]?.creditos : null;
+
+  // ESCENARIO 1: Galería de imágenes
   if (hasGaleria) {
     return (
-      <div className="relative w-full h-full overflow-hidden">
-        {galeria.map((img, idx) => (
-          <div
-            key={img._key || idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            {img.asset && (
-              <Image
-                src={urlFor(img).url()}
-                alt={`Imagen de galería ${idx + 1}`}
-                fill
-                className="object-cover"
-                priority={idx === 0}
-              />
-            )}
-            {img.creditos && (
-              <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-3 py-1.5 rounded-md backdrop-blur-sm shadow-md">
-                {img.creditos}
-              </div>
-            )}
+      <div className="relative w-full h-full overflow-hidden bg-transparent isolate transform-gpu">
+        {galeria.map((img, idx) => {
+          const isActive = idx === currentIndex;
+          const imgUrl = getOptimizedUrl(img);
+
+          return (
+            <div
+              key={img._key || idx}
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out will-change-opacity ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              {imgUrl && (
+                <Image
+                  src={imgUrl}
+                  alt={`Imagen de galería ${idx + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  priority={idx === 0}
+                  fetchPriority={idx === 0 ? 'high' : 'auto'}
+                />
+              )}
+            </div>
+          );
+        })}
+
+        {/* Créditos en la esquina inferior derecha (Elevados y desplazados 10px a la derecha) */}
+        {creditosActuales && (
+          <div className="absolute bottom-3 right-3 z-20 pointer-events-none select-none flex items-end justify-end translate-x-[10px]">
+            <span className="text-[10px] md:text-xs text-white/80 uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+              © {creditosActuales}
+            </span>
           </div>
-        ))}
+        )}
       </div>
     );
   }
 
-  // ESCENARIO 2: Fallback al render inicial (Comportamiento original)
+  // ESCENARIO 2: Fallback Render Inicial
   if (renderInicial) {
+    const renderUrl = getOptimizedUrl(renderInicial);
     return (
-      <div className="relative w-full aspect-[4/3] md:aspect-video overflow-hidden rounded-lg bg-gray-100">
-        <Image
-          src={urlFor(renderInicial).url()}
-          alt="Render Inicial"
-          fill
-          className="object-cover"
-          priority
-        />
+      <div className="relative w-full h-full overflow-hidden bg-transparent isolate">
+        {renderUrl && (
+          <Image
+            src={renderUrl}
+            alt="Render Inicial"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            priority
+            fetchPriority="high"
+          />
+        )}
       </div>
     );
   }
