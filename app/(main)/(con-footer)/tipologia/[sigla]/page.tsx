@@ -91,19 +91,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Tipologia({ params }: Props) {
 const { sigla } = await params;
 const query = `*[_type == "tipologia" && sigla == $sigla][0]{
-    _id,
-    "name": pt::text(name),
-    sigla,
-    icono,
-    descripcion, 
-    imagen_portada,
-    ficha_tecnica,
-    planta_inicial,
-    planta_ampliacion,
-    recintos,
-    render_inicial,
-    render_ampliacion,
-    }`;
+  _id,
+  "name": pt::text(name),
+  sigla,
+  icono,
+  descripcion, 
+  imagen_portada,
+  ficha_tecnica,
+  planta_inicial,
+  planta_ampliacion,
+  recintos,
+  render_inicial,
+  render_ampliacion,
+  galeria[]{
+    ...,
+    asset->
+  }
+}`;
 
     const tipologia = await client.fetch(query, { sigla });
 
@@ -130,6 +134,8 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
                     // Esto obligará al celular a mover la imagen cuadrada hacia el punto azul de Sanity
                     render_inicial_position: getPositionFromHotspot(tipologia.render_inicial?.hotspot),
                     render_ampliacion_position: getPositionFromHotspot(tipologia.render_ampliacion?.hotspot),
+                    
+                    galeria: tipologia.galeria,
                   }}
                 />
     </main>

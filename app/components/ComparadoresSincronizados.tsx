@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import Comparacion from './comparacion';
 import { PortableText } from "@portabletext/react";
+// 1. IMPORTAMOS EL NUEVO COMPONENTE DE GALERÍA
+import GaleriaTipologia from './GaleriaTipologia'; 
 
+// 2. ACTUALIZAMOS LA INTERFAZ PARA INCLUIR LA GALERÍA
 interface TipologiaData {
   name?: string;
   descripcion?: any;
@@ -13,6 +16,7 @@ interface TipologiaData {
   render_inicial?: string;
   render_inicial_position?: string; 
   render_ampliacion_position?: string;
+  galeria?: any[]; // <-- Añadido: Soporte para el array de imágenes
 }
 
 export default function ComparadoresSincronizados({ data }: { data: TipologiaData }) {
@@ -20,6 +24,9 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
 
   const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
   const Name = data.name?.replace(/\n+/g, ' ').trim() ?? '';
+  
+  // 3. VARIABLE DE CONTROL: ¿Tenemos una galería válida para mostrar?
+  const tieneGaleria = Boolean(data.galeria && data.galeria.length > 0);
 
   return (
     <>
@@ -31,17 +38,24 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
             {Name}
           </h1>
           <div className="relative w-full aspect-square overflow-hidden">
-            <Comparacion 
-              urlImagenAntes={data.render_ampliacion || ''} 
-              urlImagenDespues={data.render_inicial} 
-              posicion={posicionCompartida}
-              onPosicionChange={setPosicionCompartida}
-              posicionInicial={50}
-              objectFit="cover"
-              // PASAMOS LAS POSICIONES AQUÍ:
-              objectPositionAntes={data.render_ampliacion_position}
-              objectPositionDespues={data.render_inicial_position}
-            /> 
+            {/* LÓGICA CONDICIONAL PARA MÓVIL */}
+            {tieneGaleria ? (
+              <GaleriaTipologia 
+                galeria={data.galeria || []} 
+                renderInicial={data.render_inicial} 
+              />
+            ) : (
+              <Comparacion 
+                urlImagenAntes={data.render_ampliacion || ''} 
+                urlImagenDespues={data.render_inicial} 
+                posicion={posicionCompartida}
+                onPosicionChange={setPosicionCompartida}
+                posicionInicial={50}
+                objectFit="cover"
+                objectPositionAntes={data.render_ampliacion_position}
+                objectPositionDespues={data.render_inicial_position}
+              /> 
+            )}
           </div>
         </div>
         
@@ -53,9 +67,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
           <PortableText value={data.descripcion}/>
         </div>
             
-        
-
-        {/* --- PLANTA DE ARQUITECTURA --- */}
+        {/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
         <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
           {hayComparacionPlanta && (
             <p className="mt-2 text-left text-[#ffe900] text-sm pb-5 shrink-0">
@@ -74,25 +86,30 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
               objectPositionDespues="left center"
             /> 
           </div>
-          
-          
         </div>
       </div>
 
       {/* --- VISTA DESKTOP (Render Grande) --- */}
       <div className="hidden md:block xl:col-span-3 xl:h-full xl:min-h-0"> 
-        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0"> 
-          <Comparacion 
-            urlImagenAntes={data.render_ampliacion || ''} 
-            urlImagenDespues={data.render_inicial} 
-            posicion={posicionCompartida}
-            onPosicionChange={setPosicionCompartida}
-            posicionInicial={50}
-            objectFit="cover"
-            // LAS PASAMOS TAMBIÉN EN DESKTOP POR SI SE RECORTA:
-            objectPositionAntes={data.render_ampliacion_position}
-            objectPositionDespues={data.render_inicial_position}
-          /> 
+        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0 bg-gray-100"> 
+          {/* LÓGICA CONDICIONAL PARA DESKTOP */}
+          {tieneGaleria ? (
+            <GaleriaTipologia 
+              galeria={data.galeria || []} 
+              renderInicial={data.render_inicial} 
+            />
+          ) : (
+            <Comparacion 
+              urlImagenAntes={data.render_ampliacion || ''} 
+              urlImagenDespues={data.render_inicial} 
+              posicion={posicionCompartida}
+              onPosicionChange={setPosicionCompartida}
+              posicionInicial={50}
+              objectFit="cover"
+              objectPositionAntes={data.render_ampliacion_position}
+              objectPositionDespues={data.render_inicial_position}
+            /> 
+          )}
         </div>
       </div>
     </>
