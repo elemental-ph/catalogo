@@ -36,7 +36,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
               urlImagenDespues={data.render_inicial} 
               posicion={posicionCompartida}
               onPosicionChange={setPosicionCompartida}
-              posicionInicial={0}
+              posicionInicial={50}
               objectFit="cover"
               // PASAMOS LAS POSICIONES AQUÍ:
               objectPositionAntes={data.render_ampliacion_position}
@@ -46,7 +46,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
         
         {/* --- DESCRIPCIÓN --- */}
-        <div className="shrink-0 mb-6 xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
+        <div className="shrink-0 mb-6 text-lg xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
           <h1 className="font-bold text-2xl mb-4 hidden md:block">
             {Name}
           </h1>
@@ -68,7 +68,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
               urlImagenDespues={data.planta_inicial} 
               posicion={posicionCompartida}
               onPosicionChange={setPosicionCompartida}
-              posicionInicial={0}
+              posicionInicial={50}
               objectFit="contain"
               objectPositionAntes="left center"
               objectPositionDespues="left center"
@@ -87,7 +87,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
             urlImagenDespues={data.render_inicial} 
             posicion={posicionCompartida}
             onPosicionChange={setPosicionCompartida}
-            posicionInicial={0}
+            posicionInicial={50}
             objectFit="cover"
             // LAS PASAMOS TAMBIÉN EN DESKTOP POR SI SE RECORTA:
             objectPositionAntes={data.render_ampliacion_position}

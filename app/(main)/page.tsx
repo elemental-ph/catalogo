@@ -46,9 +46,6 @@ export default async function IndexPage() {
         <div className="m-auto max-w-md">
           <div className="text-center text-l w-full md:pb-20">
             <h1 className="text-2xl text-center text-white font-bold">{portada.titulo}</h1>  
-{/*             <div className="underline decoration-1 hover:decoration-4 underline-offset-4 transition-all duration-200">
-              <PortableText value={portada.resumen} />
-            </div> */}
           </div>
         </div>
 
@@ -84,7 +81,11 @@ export default async function IndexPage() {
             </Link>
           ))}
         </ul>
-
+            <div className="mt-16 md:mt-24 w-full flex justify-center items-center">
+          <div className="underline decoration-1 text-center text-2xl font-bold hover:decoration-4 underline-offset-4 transition-all duration-200 [&>p]:text-center [&>p]:m-0">
+            <PortableText value={portada.resumen} />
+          </div>
+        </div>
       </div>
     </main>
   );
