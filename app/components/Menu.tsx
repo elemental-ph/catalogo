@@ -25,13 +25,12 @@ export default function Menu() {
 
         return (
           <Link 
-            href={`/tipologia/${tipologia.sigla}`} 
-            className={`pointer-events-auto decoration-3 underline-offset-6 transition duration-300 hover:underline ${
-              isActive ? "underline font-bold" : "" 
-            }`} 
-            key={tipologia._id}
-          >
-            <h1 className="pr-5">{tipologia.sigla}</h1>
+            href="/" 
+        className="flex items-center gap-1.5 font-bold decoration-3 underline-offset-6 transition duration-300 hover:underline"
+      >
+        <span className="text-3xl leading-none font-light">&times;</span>
+        <span className="text-xl leading-none">volver</span>
+
           </Link>
         );
       })}

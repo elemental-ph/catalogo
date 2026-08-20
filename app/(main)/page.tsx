@@ -54,26 +54,26 @@ export default async function IndexPage() {
   const portada = await client.fetch(PORTADA_QUERY);
 
   return (
-    <main className="flex flex-grow items-center w-full p-6 pb-25 pt-20 md:p-8">
+    <main className="flex flex-grow items-center w-full p-6 pb-25 pt-20 md:p-8 md:pt-50">
       <div className="container m-auto max-w-screen">
         
         <div className="m-auto max-w-md">
           <div className="text-center text-l w-full">
-            <h1 className="text-2xl text-center text-white font-bold">{portada.titulo}</h1>  
+            <h1 className="text-2xl text-center mb-20 text-white font-bold">{portada.titulo}</h1>  
           </div>
         </div>
 
-        <ul className="flex flex-col xl:flex-row items-start justify-center gap-6 mt-15 m-auto list-none">
+        <ul className="flex flex-col xl:flex-row items-start justify-center gap-6 m-auto list-none">
           {tipologias.map((tipologia) => (
             <TipologiaCard key={tipologia._id} tipologia={tipologia} />
           ))}
         </ul>
             <div className="mt-16 md:mt-24 w-full flex justify-center items-center">
-          <div className="underline decoration-1 text-center text-2xl font-bold hover:decoration-4 underline-offset-4 transition-all duration-200 [&>p]:text-center [&>p]:m-0">
+          {/* <div className="underline decoration-1 text-center text-2xl font-bold hover:decoration-4 underline-offset-4 transition-all duration-200 [&>p]:text-center [&>p]:m-0">
             <PortableText value={portada.resumen} />
-          </div>
+          </div> */}
         </div>
       </div>
     </main>
   );
-}
+} 

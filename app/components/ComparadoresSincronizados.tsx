@@ -60,33 +60,14 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
         
         {/* --- DESCRIPCIÓN --- */}
-        <div className="shrink-0 mb-6 text-lg xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
+        <div className="shrink-0 mb-6 text-lg xl:mb-4 xl:overflow-y-auto">
           <h1 className="font-bold text-xl hidden md:block">
             {Name}
           </h1>
           <PortableText value={data.descripcion}/>
         </div>
             
-        {/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
-        <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
-          {hayComparacionPlanta && (
-            <p className="mt-2 text-center text-[#ffe900] text-sm pb-5 shrink-0">
-              deslizar para ver ampliaciones
-            </p>
-          )} 
-          <div className="relative w-full overflow-hidden">
-            <Comparacion 
-              urlImagenAntes={data.planta_ampliacion || ''} 
-              urlImagenDespues={data.planta_inicial} 
-              posicion={posicionCompartida}
-              onPosicionChange={setPosicionCompartida}
-              posicionInicial={50}
-              objectFit="contain"
-              objectPositionAntes="left center"
-              objectPositionDespues="left center"
-            /> 
-          </div>
-        </div>
+        
       </div>
 
       {/* --- VISTA DESKTOP (Render Grande) --- */}
@@ -111,7 +92,29 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
             /> 
           )}
         </div>
+        
       </div>
+      {/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
+        <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
+          
+          <div className="relative w-full overflow-hidden">
+            <Comparacion 
+              urlImagenAntes={data.planta_ampliacion || ''} 
+              urlImagenDespues={data.planta_inicial} 
+              posicion={posicionCompartida}
+              onPosicionChange={setPosicionCompartida}
+              posicionInicial={50}
+              objectFit="contain"
+              objectPositionAntes="left center"
+              objectPositionDespues="left center"
+            /> 
+          </div>
+          {hayComparacionPlanta && (
+            <p className="mt-2 text-center text-[#ffe900] text-xl pb-5 shrink-0">
+              deslizar para ver ampliaciones
+            </p>
+          )} 
+        </div>
     </>
   );
 }

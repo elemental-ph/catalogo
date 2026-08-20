@@ -117,7 +117,7 @@ const query = `*[_type == "tipologia" && sigla == $sigla][0]{
       // Now you can safely use sigla
       return (
          
-    <main className="mt-[130px] px-6 pb-20 md:pb-6 md:px-8 grid sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-10 xl:h-[calc(100vh-150px)] xl:overflow-hidden pb-6">
+    <main className="mt-[130px] px-6 md:px-8 grid xl:grid-cols-5 gap-6 xl:gap-10 xl:h-[calc(100vh-150px)] xl:overflow-hidden pb-6">
 
                   <ComparadoresSincronizados 
                   data={{
