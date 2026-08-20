@@ -38,7 +38,7 @@ export default function TipologiaCard({ tipologia }: TipologiaCardProps) {
     >
       <li className="flex flex-col items-center w-full">
         {/* Contenedor de imagen */}
-        <div className="w-full h-[200px] xl:h-[240px] flex items-end justify-center bg-transparent invert md:opacity-75 transition group-hover:opacity-100">
+        <div className="w-full md:h-[280px] flex items-end justify-center bg-transparent invert md:opacity-75 transition group-hover:opacity-100">
           {tipologia.icono && (
             <Image 
               src={urlFor(tipologia.icono).url()}

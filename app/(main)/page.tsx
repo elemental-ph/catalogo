@@ -58,12 +58,12 @@ export default async function IndexPage() {
       <div className="container m-auto max-w-screen">
         
         <div className="m-auto max-w-md">
-          <div className="text-center text-l w-full md:pb-20">
+          <div className="text-center text-l w-full">
             <h1 className="text-2xl text-center text-white font-bold">{portada.titulo}</h1>  
           </div>
         </div>
 
-        <ul className="flex flex-col xl:flex-row items-start justify-center gap-6 m-auto list-none">
+        <ul className="flex flex-col xl:flex-row items-start justify-center gap-6 mt-15 m-auto list-none">
           {tipologias.map((tipologia) => (
             <TipologiaCard key={tipologia._id} tipologia={tipologia} />
           ))}
