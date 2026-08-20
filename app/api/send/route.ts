@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       subject: `Nuevo mensaje: ${asunto}`,
       replyTo: email,
       html: `
-        <h2>Nuevo mensaje de contacto</h2>
+        <h2>Nuevo mensaje catálogo de viviendas</h2>
         <p><strong>De:</strong> ${nombre} ${apellido} (${email})</p>
         <p><strong>Mensaje:</strong></p>
         <p>${mensaje}</p>
