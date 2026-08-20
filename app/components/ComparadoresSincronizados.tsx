@@ -91,7 +91,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
 
       {/* --- VISTA DESKTOP (Render Grande) --- */}
       <div className="hidden md:block xl:col-span-3 xl:h-full xl:min-h-0"> 
-        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0 bg-gray-100"> 
+        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0 bg-transparent"> 
           {/* LÓGICA CONDICIONAL PARA DESKTOP */}
           {tieneGaleria ? (
             <GaleriaTipologia 

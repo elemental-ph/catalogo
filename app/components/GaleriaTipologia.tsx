@@ -90,8 +90,8 @@ export default function GaleriaTipologia({
 
         {/* Créditos en la esquina inferior derecha */}
         {creditosActuales && (
-          <div className="absolute bottom-10 right-2 z-20 pointer-events-none select-none flex items-end justify-end translate-x-[10px]">
-            <span className="text-[10px] md:text-xs text-white/80 uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 whitespace-nowrap drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+          <div className="absolute bottom-3 right-3 z-20 pointer-events-none select-none flex items-end justify-end translate-x-[10px]">
+            <span className="text-[10px] md:text-xs text-white/80 uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 whitespace-nowrap">
               © {creditosActuales}
             </span>
           </div>
