@@ -61,7 +61,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         
         {/* --- DESCRIPCIÓN --- */}
         <div className="shrink-0 mb-6 text-lg xl:mb-4 xl:overflow-y-auto xl:max-h-[35vh]">
-          <h1 className="font-bold text-2xl mb-4 hidden md:block">
+          <h1 className="font-bold text-xl hidden md:block">
             {Name}
           </h1>
           <PortableText value={data.descripcion}/>

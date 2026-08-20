@@ -15,6 +15,9 @@ export default function GaleriaTipologia({
   renderInicial 
 }: GaleriaProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+  const [fallbackLoaded, setFallbackLoaded] = useState(false);
+
   const INTERVALO_SEGUNDOS = 4;
   const hasGaleria = Array.isArray(galeria) && galeria.length > 0;
 
@@ -30,6 +33,8 @@ export default function GaleriaTipologia({
 
   useEffect(() => {
     setCurrentIndex(0);
+    setLoadedImages({});
+    setFallbackLoaded(false);
   }, [galeria, renderInicial]);
 
   // Precarga de la siguiente imagen
@@ -64,13 +69,16 @@ export default function GaleriaTipologia({
       <div className="relative w-full h-full overflow-hidden bg-transparent isolate transform-gpu">
         {galeria.map((img, idx) => {
           const isActive = idx === currentIndex;
+          const isLoaded = Boolean(loadedImages[idx]);
           const imgUrl = getOptimizedUrl(img);
 
           return (
             <div
               key={img._key || idx}
               className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out will-change-opacity ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                isActive && isLoaded
+                  ? 'opacity-100 z-10'
+                  : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
               {imgUrl && (
@@ -82,6 +90,9 @@ export default function GaleriaTipologia({
                   style={{ objectFit: 'cover', objectPosition: 'center' }}
                   priority={idx === 0}
                   fetchPriority={idx === 0 ? 'high' : 'auto'}
+                  onLoad={() => {
+                    setLoadedImages((prev) => ({ ...prev, [idx]: true }));
+                  }}
                 />
               )}
             </div>
@@ -111,9 +122,15 @@ export default function GaleriaTipologia({
             alt="Render Inicial"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 75vw"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ 
+              objectFit: 'cover', 
+              objectPosition: 'center',
+              transition: 'opacity 0.7s ease-in-out',
+              opacity: fallbackLoaded ? 1 : 0
+            }}
             priority
             fetchPriority="high"
+            onLoad={() => setFallbackLoaded(true)}
           />
         )}
       </div>

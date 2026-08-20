@@ -1,9 +1,8 @@
-// Comparacion.tsx
+'use client';
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   ReactCompareSlider, 
-  ReactCompareSliderImage, 
   ReactCompareSliderHandle,
   styleFitContainer 
 } from 'react-compare-slider';
@@ -20,58 +19,87 @@ interface ComparacionProps {
   objectPositionDespues?: string;
 }
 
-const Comparacion: React.FC<ComparacionProps> = ({ 
+export default function Comparacion({ 
   urlImagenAntes, 
   urlImagenDespues, 
   posicion, 
   onPosicionChange,
   posicionInicial = 50, 
-  fit = true,
   objectFit = 'cover',
   objectPositionAntes = 'center',
   objectPositionDespues = 'center'
-}) => {
+}: ComparacionProps) {
+
+  const imgAntes = urlImagenAntes?.trim() ? urlImagenAntes : undefined;
+  const imgDespues = urlImagenDespues?.trim() ? urlImagenDespues : undefined;
+  const esComparacion = Boolean(imgAntes && imgDespues);
+  const imagenUnica = imgAntes || imgDespues;
+
+  // Estados de carga para el modo comparativo (dos imágenes)
+  const [cargadaAntes, setCargadaAntes] = useState(false);
+  const [cargadaDespues, setCargadaDespues] = useState(false);
+  const refAntes = useRef<HTMLImageElement>(null);
+  const refDespues = useRef<HTMLImageElement>(null);
+
+  // Estado de carga para el modo imagen única
+  const [cargadaUnica, setCargadaUnica] = useState(false);
+  const refUnica = useRef<HTMLImageElement>(null);
+
+  // Reinicio de estados y verificación de caché cuando cambia la tipología o imagen
+  useEffect(() => {
+    setCargadaAntes(false);
+    setCargadaDespues(false);
+    setCargadaUnica(false);
+
+    if (imgAntes && refAntes.current?.complete) setCargadaAntes(true);
+    if (imgDespues && refDespues.current?.complete) setCargadaDespues(true);
+    if (imagenUnica && refUnica.current?.complete) setCargadaUnica(true);
+  }, [imgAntes, imgDespues, imagenUnica]);
+
+  if (!imagenUnica) return null;
 
   const containerStyle: React.CSSProperties = {
     width: '100%',
     height: '100%', 
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
-  // --- ESTILOS INDIVIDUALES PARA APLICAR EL HOTSPOT ---
-  const styleAntes: React.CSSProperties = {
-    ...styleFitContainer,
-    objectFit: objectFit,
-    objectPosition: objectPositionAntes,
-  };
-
-  const styleDespues: React.CSSProperties = {
-    ...styleFitContainer,
-    objectFit: objectFit,
-    objectPosition: objectPositionDespues,
-  };
-
-  const imgAntes = urlImagenAntes?.trim() ? urlImagenAntes : undefined;
-  const imgDespues = urlImagenDespues?.trim() ? urlImagenDespues : undefined;
-  const imagenUnica = imgAntes || imgDespues;
-  const styleUnica = imgAntes ? styleAntes : styleDespues;
-
-  if (!imagenUnica) return null;
-
-  if (!imgAntes || !imgDespues) {
+  // --- CASO 1: IMAGEN ÚNICA (Plantas o Renders sin ampliación) ---
+  if (!esComparacion) {
     return (
       <div style={containerStyle}>
-        <ReactCompareSliderImage 
-          src={imagenUnica} 
-          alt="Imagen de la tipología" 
-          style={styleUnica}
-        />
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <img
+            ref={refUnica}
+            src={imagenUnica}
+            alt="Imagen de la tipología"
+            onLoad={() => setCargadaUnica(true)}
+            style={{
+              ...styleFitContainer,
+              objectFit,
+              objectPosition: imgAntes ? objectPositionAntes : objectPositionDespues,
+              transition: 'opacity 0.5s ease-in-out',
+              opacity: cargadaUnica ? 1 : 0,
+              display: 'block',
+              width: '100%',
+              height: '100%',
+            }}
+            // @ts-ignore
+            fetchPriority="high"
+          />
+        </div>
       </div>
     );
   }
 
-  // --- HANDLE PERSONALIZADO CON ALINEACIÓN EXACTA Y LÍNEA AMARILLA ---
+  // --- CASO 2: COMPARACIÓN DE DOS IMÁGENES ---
+  // Sincronización: Ambas deben haber cargado para activar la visibilidad del slider
+  const ambasCargadas = cargadaAntes && cargadaDespues;
+
   const CustomHandle = (
     <ReactCompareSliderHandle
       style={{ color: '#ffe900' }}
@@ -102,29 +130,58 @@ const Comparacion: React.FC<ComparacionProps> = ({
 
   return (
     <div style={containerStyle}>
-      <ReactCompareSlider
-        position={posicion !== undefined ? posicion : posicionInicial} 
-        onPositionChange={onPosicionChange}
-        handle={CustomHandle}
-        style={{ width: '100%', height: '100%' }}
-        boundsPadding={0}
-        itemOne={
-          <ReactCompareSliderImage 
-            src={imgAntes} 
-            alt="Imagen Antes" 
-            style={styleAntes}
-          />
-        }
-        itemTwo={
-          <ReactCompareSliderImage 
-            src={imgDespues} 
-            alt="Imagen Después" 
-            style={styleDespues}
-          />
-        }
-      />
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          transition: 'opacity 0.5s ease-in-out',
+          opacity: ambasCargadas ? 1 : 0,
+        }}
+      >
+        <ReactCompareSlider
+          position={posicion !== undefined ? posicion : posicionInicial} 
+          onPositionChange={onPosicionChange}
+          handle={CustomHandle}
+          style={{ width: '100%', height: '100%' }}
+          boundsPadding={0}
+          itemOne={
+            <img 
+              ref={refAntes}
+              src={imgAntes} 
+              alt="Imagen Antes" 
+              onLoad={() => setCargadaAntes(true)}
+              style={{
+                ...styleFitContainer,
+                objectFit,
+                objectPosition: objectPositionAntes,
+                display: 'block',
+                width: '100%',
+                height: '100%',
+              }}
+              // @ts-ignore
+              fetchPriority="high"
+            />
+          }
+          itemTwo={
+            <img 
+              ref={refDespues}
+              src={imgDespues} 
+              alt="Imagen Después" 
+              onLoad={() => setCargadaDespues(true)}
+              style={{
+                ...styleFitContainer,
+                objectFit,
+                objectPosition: objectPositionDespues,
+                display: 'block',
+                width: '100%',
+                height: '100%',
+              }}
+              // @ts-ignore
+              fetchPriority="high"
+            />
+          }
+        />
+      </div>
     </div>
   );
-};
-
-export default Comparacion;
+}
