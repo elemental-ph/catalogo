@@ -35,17 +35,14 @@ export default function Comparacion({
   const esComparacion = Boolean(imgAntes && imgDespues);
   const imagenUnica = imgAntes || imgDespues;
 
-  // Estados de carga para el modo comparativo (dos imágenes)
   const [cargadaAntes, setCargadaAntes] = useState(false);
   const [cargadaDespues, setCargadaDespues] = useState(false);
   const refAntes = useRef<HTMLImageElement>(null);
   const refDespues = useRef<HTMLImageElement>(null);
 
-  // Estado de carga para el modo imagen única
   const [cargadaUnica, setCargadaUnica] = useState(false);
   const refUnica = useRef<HTMLImageElement>(null);
 
-  // Reinicio de estados y verificación de caché cuando cambia la tipología o imagen
   useEffect(() => {
     setCargadaAntes(false);
     setCargadaDespues(false);
@@ -66,13 +63,13 @@ export default function Comparacion({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    touchAction: 'pan-y', // 👈 Permite scroll vertical nativo sobre el área
   };
 
-  // --- CASO 1: IMAGEN ÚNICA (Plantas o Renders sin ampliación) ---
   if (!esComparacion) {
     return (
       <div style={containerStyle}>
-        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <div style={{ position: 'relative', width: '100%', height: '100%', touchAction: 'pan-y' }}>
           <img
             ref={refUnica}
             src={imagenUnica}
@@ -87,6 +84,7 @@ export default function Comparacion({
               display: 'block',
               width: '100%',
               height: '100%',
+              touchAction: 'pan-y',
             }}
             // @ts-ignore
             fetchPriority="high"
@@ -96,13 +94,11 @@ export default function Comparacion({
     );
   }
 
-  // --- CASO 2: COMPARACIÓN DE DOS IMÁGENES ---
-  // Sincronización: Ambas deben haber cargado para activar la visibilidad del slider
   const ambasCargadas = cargadaAntes && cargadaDespues;
 
   const CustomHandle = (
     <ReactCompareSliderHandle
-      style={{ color: '#ffe900' }}
+      style={{ color: '#ffe900', touchAction: 'pan-y' }}
       buttonStyle={{
         backgroundColor: '#ffe900',
         color: '#000000',
@@ -136,13 +132,14 @@ export default function Comparacion({
           height: '100%',
           transition: 'opacity 0.5s ease-in-out',
           opacity: ambasCargadas ? 1 : 0,
+          touchAction: 'pan-y', // 👈 Habilita el pan vertical
         }}
       >
         <ReactCompareSlider
           position={posicion !== undefined ? posicion : posicionInicial} 
           onPositionChange={onPosicionChange}
           handle={CustomHandle}
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', touchAction: 'pan-y' }} // 👈 Regla clave para el slider
           boundsPadding={0}
           itemOne={
             <img 
@@ -157,6 +154,7 @@ export default function Comparacion({
                 display: 'block',
                 width: '100%',
                 height: '100%',
+                touchAction: 'pan-y',
               }}
               // @ts-ignore
               fetchPriority="high"
@@ -175,6 +173,7 @@ export default function Comparacion({
                 display: 'block',
                 width: '100%',
                 height: '100%',
+                touchAction: 'pan-y',
               }}
               // @ts-ignore
               fetchPriority="high"
