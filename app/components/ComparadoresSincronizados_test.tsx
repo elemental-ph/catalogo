@@ -19,7 +19,7 @@ interface TipologiaData {
   galeria?: any[]; // <-- Añadido: Soporte para el array de imágenes
 }
 
-export default function ComparadoresSincronizados({ data }: { data: TipologiaData }) {
+export default function ComparadoresSincronizados_test({ data }: { data: TipologiaData }) {
   const [posicionCompartida, setPosicionCompartida] = useState(50);
 
   const hayComparacionPlanta = Boolean(data.planta_ampliacion && data.planta_inicial);
@@ -68,11 +68,33 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
             
         
-      </div>
+      
 
+{/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
+        <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
+          
+          <div className="relative w-full overflow-hidden">
+            <Comparacion 
+              urlImagenAntes={data.planta_ampliacion || ''} 
+              urlImagenDespues={data.planta_inicial} 
+              posicion={posicionCompartida}
+              onPosicionChange={setPosicionCompartida}
+              posicionInicial={50}
+              objectFit="contain"
+              objectPositionAntes="center center"
+              objectPositionDespues="center center"
+            /> 
+          </div>
+          {hayComparacionPlanta && (
+            <p className="mt-2 text-center text-[#ffe900] text-xl pb-5 shrink-0">
+              deslizar para ver ampliaciones
+            </p>
+          )} 
+        </div>
+        </div>
       {/* --- VISTA DESKTOP (Render Grande) --- */}
       <div className="hidden md:block xl:col-span-3 xl:h-full xl:min-h-0"> 
-        <div className="relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0 bg-transparent"> 
+        <div className="pt-[110] relative h-full w-full overflow-hidden min-h-[400px] xl:min-h-0 bg-transparent"> 
           {/* LÓGICA CONDICIONAL PARA DESKTOP */}
           {tieneGaleria ? (
             <GaleriaTipologia 
@@ -94,27 +116,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
         </div>
         
       </div>
-      {/* --- PLANTA DE ARQUITECTURA (Sin cambios) --- */}
-        <div className="xl:min-h-0 flex flex-col justify-start w-full mb-6 xl:mb-0">
-          
-          <div className="relative w-full overflow-hidden">
-            <Comparacion 
-              urlImagenAntes={data.planta_ampliacion || ''} 
-              urlImagenDespues={data.planta_inicial} 
-              posicion={posicionCompartida}
-              onPosicionChange={setPosicionCompartida}
-              posicionInicial={50}
-              objectFit="contain"
-              objectPositionAntes="left center"
-              objectPositionDespues="left center"
-            /> 
-          </div>
-          {hayComparacionPlanta && (
-            <p className="mt-2 text-center text-[#ffe900] text-xl pb-5 shrink-0">
-              deslizar para ver ampliaciones
-            </p>
-          )} 
-        </div>
+      
     </>
   );
 }
