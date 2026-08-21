@@ -34,7 +34,7 @@ export default function ComparadoresSincronizados({ data }: { data: TipologiaDat
 
         {/* --- VISTA MÓVIL (Render + Título) --- */}
         <div className="block md:hidden mb-6"> 
-          <h1 className="font-bold text-2xl mb-4">
+          <h1 className="uppercase font-bold text-2xl mb-4">
             {Name}
           </h1>
           <div className="relative w-full aspect-square overflow-hidden">
