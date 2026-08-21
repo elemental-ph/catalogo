@@ -59,7 +59,7 @@ export default async function IndexPage() {
         
         <div className="m-auto max-w-md">
           <div className="text-center text-l w-full">
-            <h1 className="text-2xl text-center mt-10 mb-20 text-white font-bold">{portada.titulo}</h1>  
+            <h1 className="text-2xl text-center mt-12 mb-20 text-white font-bold">{portada.titulo}</h1>  
           </div>
         </div>
 
